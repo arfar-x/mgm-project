@@ -38,16 +38,4 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
         /** @var string */
         return $this->findBy('slug', $slug)->value;
     }
-
-    /**
-     * Find exact record by given key-value.
-     *
-     * @param string $key
-     * @param string $value
-     * @return Setting|null
-     */
-    public function findBy(string $key, string $value): Setting|null
-    {
-        return $this->model->where($key, $value)->first();
-    }
 }

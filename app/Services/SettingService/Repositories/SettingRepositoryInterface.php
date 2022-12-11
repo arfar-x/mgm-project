@@ -22,13 +22,4 @@ interface SettingRepositoryInterface extends BaseRepositoryInterface
      * @return string
      */
     public function getValueBySlug(string $slug): string;
-
-    /**
-     * Find exact record by given key-value.
-     *
-     * @param string $key
-     * @param string $value
-     * @return Setting|null
-     */
-    public function findBy(string $key, string $value): Setting|null;
 }

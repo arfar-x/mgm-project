@@ -38,4 +38,13 @@ interface BaseRepositoryInterface
      * @return bool
      */
     public function destroy(Model $model): bool;
+
+    /**
+     * Find an exact record by given key-value.
+     *
+     * @param string $key
+     * @param string $value
+     * @return Model|null
+     */
+    public function findBy(string $key, string $value): Model|null;
 }
