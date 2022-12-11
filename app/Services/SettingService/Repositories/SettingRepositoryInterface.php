@@ -2,7 +2,7 @@
 
 namespace App\Services\SettingService\Repositories;
 
-use App\Services\CoreService\Repositories\BaseRepositoryInterface;
+use App\Services\BaseService\Repositories\BaseRepositoryInterface;
 
 interface SettingRepositoryInterface extends BaseRepositoryInterface
 {
