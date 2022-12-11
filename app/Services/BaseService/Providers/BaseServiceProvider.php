@@ -2,6 +2,7 @@
 
 namespace App\Services\BaseService\Providers;
 
+use App\Services\SettingService\Providers\SettingServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class BaseServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(SettingServiceProvider::class);
     }
 
     /**
