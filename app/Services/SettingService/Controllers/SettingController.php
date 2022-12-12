@@ -9,10 +9,42 @@ use Illuminate\Http\Request;
 
 class SettingController extends BaseController
 {
+    /**
+     * @param SettingRepositoryInterface $settingService
+     */
     public function __construct(protected SettingRepositoryInterface $settingService)
     {
         //
     }
+
+    /** Admin methods */
+
+    public function index(Request $request)
+    {
+        //
+    }
+
+    public function store()
+    {
+        //
+    }
+
+    public function show()
+    {
+        //
+    }
+
+    public function update()
+    {
+        //
+    }
+
+    public function delete()
+    {
+        //
+    }
+
+    /** Panel methods */
 
     /**
      * Get settings by their type.
