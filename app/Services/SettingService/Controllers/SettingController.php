@@ -3,6 +3,8 @@
 namespace App\Services\SettingService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\SettingService\Requests\Admin\CreateSettingRequest;
+use App\Services\SettingService\Requests\Admin\UpdateSettingRequest;
 use App\Services\SettingService\Models\Setting;
 use App\Services\SettingService\Repositories\SettingRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -35,16 +37,9 @@ class SettingController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateSettingRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'title' => ['required', 'string'],
-            'slug' => ['required', 'string'],
-            'value' => ['required', 'string'],
-            'type' => ['required', 'string'],
-        ]);
-
-        $result = $this->settingService->create($data);
+        $result = $this->settingService->create($request->validated());
 
         return response()->json($result);
     }
@@ -65,16 +60,9 @@ class SettingController extends BaseController
      * @param Setting $setting
      * @return JsonResponse
      */
-    public function update(Request $request, Setting $setting): JsonResponse
+    public function update(UpdateSettingRequest $request, Setting $setting): JsonResponse
     {
-        $data = $request->validate([
-            'title' => ['required', 'string'],
-            'slug' => ['required', 'string'],
-            'value' => ['required', 'string'],
-            'type' => ['required', 'string'],
-        ]);
-
-        $result = $this->settingService->update($setting, $data);
+        $result = $this->settingService->update($setting, $request->validated());
 
         return response()->json($result);
     }
