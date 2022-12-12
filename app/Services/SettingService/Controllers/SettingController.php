@@ -14,6 +14,12 @@ class SettingController extends BaseController
         //
     }
 
+    /**
+     * Get settings by their type.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function getPermanent(Request $request)
     {
         $permanentSettings = $this->settingService->getPermanent($request->query('type'));
