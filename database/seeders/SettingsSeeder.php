@@ -32,6 +32,46 @@ class SettingsSeeder extends Seeder
                 'type' => 'info',
                 'created_at' => $now,
                 'updated_at' => $now,
+            ],
+            [
+                'title' => 'شماره موبایل',
+                'slug' => 'mobile',
+                'value' => '09123456789',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'title' => 'آدرس',
+                'slug' => 'address',
+                'value' => 'مشهد بزرگراه آسیایی',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'title' => 'شعار اصلی',
+                'slug' => 'slogan-main',
+                'value' => 'متن شعار اصلی',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'title' => 'شعار فوتر',
+                'slug' => 'slogan-footer',
+                'value' => 'شعار در فوتر',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'title' => 'کپی رایت',
+                'slug' => 'copyright',
+                'value' => 'متن کپی رایت',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ]);
     }
