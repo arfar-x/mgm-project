@@ -14,6 +14,13 @@ class SettingController extends BaseController
         //
     }
 
+    public function getPermanent(Request $request)
+    {
+        $permanentSettings = $this->settingService->getPermanent($request->query('type'));
+
+        return response()->json(['result' => $permanentSettings]);
+    }
+
     /**
      * Get an entire record by slug.
      *

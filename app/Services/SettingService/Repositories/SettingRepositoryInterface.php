@@ -4,9 +4,17 @@ namespace App\Services\SettingService\Repositories;
 
 use App\Services\BaseService\Repositories\BaseRepositoryInterface;
 use App\Services\SettingService\Models\Setting;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 interface SettingRepositoryInterface extends BaseRepositoryInterface
 {
+    /**
+     * Get settings by their type.
+     *
+     * @return 
+     */
+    public function getPermanent(string|array $types = null): EloquentCollection;
+
     /**
      * Get a setting record by slug.
      *

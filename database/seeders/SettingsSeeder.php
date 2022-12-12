@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Services\SettingService\Models\Setting;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SettingsSeeder extends Seeder
@@ -15,11 +14,25 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        Setting::query()->create([
-            'title' => 'شماره تلفن',
-            'slug' => 'phone-number',
-            'value' => '0511112233',
-            'type' => ''
+        $now = now()->toDateTimeString();
+
+        Setting::query()->insert([
+            [
+                'title' => 'شماره تلفن',
+                'slug' => 'phone-number',
+                'value' => '0511112233',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'title' => 'شماره واتساپ',
+                'slug' => 'whatsapp-number',
+                'value' => '09123456789',
+                'type' => 'info',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]
         ]);
     }
 }

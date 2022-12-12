@@ -5,6 +5,7 @@ namespace App\Services\SettingService\Repositories;
 use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\SettingService\Models\Setting;
 use App\Services\SettingService\Repositories\SettingRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface
 {
@@ -14,6 +15,28 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     public function __construct(Setting $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * Get settings by their type.
+     *
+     * @return void
+     */
+    public function getPermanent(string|array $types = null): EloquentCollection
+    {
+        if (is_string($types)) {
+            $types = [$types];
+        }
+
+        if (empty($types)) {
+            $types = [
+                'info',
+                'slogan',
+                'copyright'
+            ];
+        }
+
+        return $this->model->whereIn('type', $types)->get();
     }
 
     /**
