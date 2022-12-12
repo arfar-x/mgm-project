@@ -3,6 +3,7 @@
 namespace App\Services\SettingService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\SettingService\Models\Setting;
 use App\Services\SettingService\Repositories\SettingRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,29 +20,74 @@ class SettingController extends BaseController
 
     /** Admin methods */
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
-        //
+        $result = $this->settingService->list($request->query());
+
+        return response()->json($result);
     }
 
-    public function store()
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
+            'value' => ['required', 'string'],
+            'type' => ['required', 'string'],
+        ]);
+
+        $result = $this->settingService->create($data);
+
+        return response()->json($result);
     }
 
-    public function show()
+    /**
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function show(Setting $setting): JsonResponse
     {
-        //
+        $result = $this->settingService->show($setting);
+
+        return response()->json($result);
     }
 
-    public function update()
+    /**
+     * @param Request $request
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function update(Request $request, Setting $setting): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
+            'value' => ['required', 'string'],
+            'type' => ['required', 'string'],
+        ]);
+
+        $result = $this->settingService->update($setting, $data);
+
+        return response()->json($result);
     }
 
-    public function delete()
+    /**
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function delete(Setting $setting): JsonResponse
     {
-        //
+        $result = $this->settingService->destroy($setting);
+
+        return response()->json($result);
     }
 
     /** Panel methods */
