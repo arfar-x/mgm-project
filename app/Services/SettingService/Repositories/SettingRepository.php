@@ -31,7 +31,7 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
             'copyright'
         ] : $types;
 
-        return $this->model->whereIn('type', $types)->get();
+        return $this->findIn('type', $types)->get();
     }
 
     /**
