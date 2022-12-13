@@ -57,4 +57,20 @@ interface BaseRepositoryInterface
      * @return Model
      */
     public function findIn(string $key, string|array $values = null): Builder|null;
+
+    /**
+     * Activate the model record.
+     *
+     * @param Model $model
+     * @return Model
+     */
+    public function activate(Model $model): Model;
+
+    /**
+     * Deactivate the model record.
+     *
+     * @param Model $model
+     * @return Model
+     */
+    public function deactivate(Model $model): Model;
 }

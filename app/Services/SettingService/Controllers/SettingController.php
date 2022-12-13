@@ -128,4 +128,30 @@ class SettingController extends BaseController
 
         return response()->json(['result' => $result]);
     }
+
+    /**
+     * Activate the setting record.
+     *
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function activate(Setting $setting): JsonResponse
+    {
+        $result = $this->settingService->activate($setting);
+
+        return response()->json(['result' => $result]);
+    }
+
+    /**
+     * Deactivate the setting record.
+     *
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function deactivate(Setting $setting): JsonResponse
+    {
+        $result = $this->settingService->deactivate($setting);
+
+        return response()->json(['result' => $result]);
+    }
 }

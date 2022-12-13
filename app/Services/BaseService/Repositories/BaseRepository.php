@@ -108,4 +108,26 @@ class BaseRepository implements BaseRepositoryInterface
 
         return $this->model->whereIn($key, $values);
     }
+
+    /**
+     * Activate the model record.
+     *
+     * @param Model $model
+     * @return Model
+     */
+    public function activate(Model $model): Model
+    {
+        return $this->update($model, ['status' => true]);
+    }
+
+    /**
+     * Deactivate the model record.
+     *
+     * @param Model $model
+     * @return Model
+     */
+    public function deactivate(Model $model): Model
+    {
+        return $this->update($model, ['status' => false]);
+    }
 }

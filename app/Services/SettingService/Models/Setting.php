@@ -18,6 +18,9 @@ class Setting extends Model
 {
     use HasFactory;
 
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,5 +31,8 @@ class Setting extends Model
         'slug',
         'value',
         'type',
+        'status',
+        'created_at',
+        'updated_at',
     ];
 }

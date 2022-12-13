@@ -11,6 +11,8 @@ Route::middleware('api')->prefix('api')->group(function () {
         Route::get('/{setting}', [SettingController::class, 'show'])->name('show');
         Route::patch('/{setting}', [SettingController::class, 'update'])->name('update');
         Route::delete('/{setting}', [SettingController::class, 'delete'])->name('delete');
+        Route::patch('/{setting}/activate', [SettingController::class, 'activate'])->name('activate');
+        Route::patch('/{setting}/deactivate', [SettingController::class, 'deactivate'])->name('deactivate');
     });
 
     Route::prefix('panel/settings')->name('panel.settings.')->group(function () {
