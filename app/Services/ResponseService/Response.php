@@ -20,7 +20,7 @@ class Response
      * @param array $meta
      * @return JsonResponse
      */
-    public function make(JsonResource|array $data, array $messages, int $statusCode, array $meta)
+    public function make(JsonResource|array $data, array $messages, int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
     {
         return LaravelResponse::json(
             [
@@ -128,6 +128,44 @@ class Response
             $messages = [
                 'type' => 'success',
                 'text' => $messages ?: __('response::default.actions.created')
+            ];
+        }
+
+        return $this->make($data, $messages, $statusCode, $meta);
+    }
+
+    /**
+     * @param JsonResource|array $data
+     * @param array $messages
+     * @param int $statusCode
+     * @param array $meta
+     * @return JsonResponse
+     */
+    public function updated(JsonResource|array $data, string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = []): JsonResponse
+    {
+        if (is_string($messages) || empty($messages)) {
+            $messages = [
+                'type' => 'success',
+                'text' => $messages ?: __('response::default.actions.updated')
+            ];
+        }
+
+        return $this->make($data, $messages, $statusCode, $meta);
+    }
+
+    /**
+     * @param JsonResource|array $data
+     * @param array $messages
+     * @param int $statusCode
+     * @param array $meta
+     * @return JsonResponse
+     */
+    public function deleted(JsonResource|array $data, string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = []): JsonResponse
+    {
+        if (is_string($messages) || empty($messages)) {
+            $messages = [
+                'type' => 'success',
+                'text' => $messages ?: __('response::default.actions.deleted')
             ];
         }
 
