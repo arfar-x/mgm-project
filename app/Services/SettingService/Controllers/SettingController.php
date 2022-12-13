@@ -92,6 +92,19 @@ class SettingController extends BaseController
 
         return response()->json(['result' => $permanentSettings]);
     }
+    
+    /**
+     * Get short list of settings.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getShortList(Request $request)
+    {
+        $permanentSettings = $this->settingService->getShortList($request->query('type'));
+
+        return response()->json(['result' => $permanentSettings]);
+    }
 
     /**
      * Get an entire record by slug.

@@ -14,6 +14,9 @@ Route::middleware('api')->prefix('api')->group(function () {
     });
 
     Route::prefix('panel/settings')->name('panel.settings.')->group(function () {
+
+        Route::get('/short-list', [SettingController::class, 'getShortList'])->name('short-list');
+
         // Get permanent settings which are used for most pages
         Route::patch('/permanent', [SettingController::class, 'getPermanent'])->name('permanent');
 

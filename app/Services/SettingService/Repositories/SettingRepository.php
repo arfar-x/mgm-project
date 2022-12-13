@@ -6,6 +6,7 @@ use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\SettingService\Models\Setting;
 use App\Services\SettingService\Repositories\SettingRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface
 {
@@ -37,6 +38,28 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
         }
 
         return $this->model->whereIn('type', $types)->get();
+    }
+
+    /**
+     * Get settings' slugs by their type.
+     *
+     * @return void
+     */
+    public function getShortList(string|array $types = null): Collection
+    {
+        if (is_string($types)) {
+            $types = [$types];
+        }
+
+        if (empty($types)) {
+            $types = [
+                'info',
+                'slogan',
+                'copyright'
+            ];
+        }
+
+        return $this->model->whereIn('type', $types)->pluck('value', 'slug');
     }
 
     /**
