@@ -6,18 +6,18 @@ use Illuminate\Support\Facades\Facade;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 /**
- * @method static JsonResponse make(JsonResource|array $data, array $messages, int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
- * @method static JsonResponse success($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = [])
- * @method static JsonResponse retrieved($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = [])
- * @method static JsonResponse paginate($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = [])
- * @method static JsonResponse info($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = [])
- * @method static JsonResponse created($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_CREATED, $meta = [])
- * @method static JsonResponse updated($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = [])
- * @method static JsonResponse deleted($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, $meta = [])
- * @method static JsonResponse noContent($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_NO_CONTENT, $meta = [])
- * @method static JsonResponse unauthorized($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_UNAUTHORIZED, $meta = [])
- * @method static JsonResponse error($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR, $meta = [])
- * @method static JsonResponse notFound($data = [], $messages = [], int $statusCode = SymfonyResponse::HTTP_NOT_FOUND, $meta = [])
+ * @method static JsonResponse make(JsonResource|array $data = [], array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse success(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse retrieved(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse paginate(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse info(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse created(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_CREATED, array $meta = [])
+ * @method static JsonResponse updated(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse deleted(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+ * @method static JsonResponse noContent(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_NO_CONTENT, array $meta = [])
+ * @method static JsonResponse unauthorized(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_UNAUTHORIZED, array $meta = [])
+ * @method static JsonResponse error(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR, array $meta = [])
+ * @method static JsonResponse notFound(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_NOT_FOUND, array $meta = [])
  *
  * @see \App\Services\ResponseService\Response
  */
