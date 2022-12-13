@@ -37,5 +37,5 @@ interface SettingRepositoryInterface extends BaseRepositoryInterface
      * @param string $slug
      * @return string
      */
-    public function getValueBySlug(string $slug): string;
+    public function getValueBySlug(string $slug): string|null;
 }

@@ -67,9 +67,9 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      * @param string $slug
      * @return string
      */
-    public function getValueBySlug(string $slug): string
+    public function getValueBySlug(string $slug): string|null
     {
         /** @var string */
-        return $this->findBy('slug', $slug)->value;
+        return $this->findBy('slug', $slug)?->value;
     }
 }

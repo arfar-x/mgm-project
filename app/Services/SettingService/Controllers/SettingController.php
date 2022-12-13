@@ -119,7 +119,7 @@ class SettingController extends BaseController
      * @param Request $request
      * @return void
      */
-    public function getPermanent(Request $request)
+    public function getPermanent(Request $request): JsonResponse
     {
         $permanentSettings = $this->settingService->getPermanent($request->query('type'));
 
@@ -132,7 +132,7 @@ class SettingController extends BaseController
      * @param Request $request
      * @return void
      */
-    public function getShortList(Request $request)
+    public function getShortList(Request $request): JsonResponse
     {
         $permanentSettings = $this->settingService->getShortList($request->query('type'));
 
@@ -167,7 +167,7 @@ class SettingController extends BaseController
         $result = $this->settingService->getValueBySlug($request->slug);
 
         if ($result) {
-            return Response::make([$result], [
+            return Response::make(['result' => $result], [
                 'type' => 'info',
                 'text' => __('response::default.actions.retrieved')
             ]);
