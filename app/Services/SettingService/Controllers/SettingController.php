@@ -3,10 +3,13 @@
 namespace App\Services\SettingService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\ResponseService\Facades\Response;
 use App\Services\SettingService\Requests\Admin\CreateSettingRequest;
 use App\Services\SettingService\Requests\Admin\UpdateSettingRequest;
 use App\Services\SettingService\Models\Setting;
 use App\Services\SettingService\Repositories\SettingRepositoryInterface;
+use App\Services\SettingService\Resources\SettingCollection;
+use App\Services\SettingService\Resources\SettingResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -30,7 +33,7 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->list($request->query());
 
-        return response()->json($result);
+        return Response::paginate(new SettingCollection($result));
     }
 
     /**
@@ -41,7 +44,7 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->create($request->validated());
 
-        return response()->json($result);
+        return Response::created(new SettingResource($result));
     }
 
     /**
@@ -52,7 +55,7 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->show($setting);
 
-        return response()->json($result);
+        return Response::retrieved(new SettingResource($result));
     }
 
     /**
@@ -64,7 +67,7 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->update($setting, $request->validated());
 
-        return response()->json($result);
+        return Response::updated(new SettingResource($result));
     }
 
     /**
@@ -75,7 +78,37 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->destroy($setting);
 
-        return response()->json($result);
+        if ($result) {
+            return Response::deleted(['result' => $result]);
+        }
+
+        return Response::error(['result' => $result]);
+    }
+
+    /**
+     * Activate the setting record.
+     *
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function activate(Setting $setting): JsonResponse
+    {
+        $result = $this->settingService->activate($setting);
+
+        return Response::success(new SettingResource($result));
+    }
+
+    /**
+     * Deactivate the setting record.
+     *
+     * @param Setting $setting
+     * @return JsonResponse
+     */
+    public function deactivate(Setting $setting): JsonResponse
+    {
+        $result = $this->settingService->deactivate($setting);
+
+        return Response::success(new SettingResource($result));
     }
 
     /** Panel methods */
@@ -90,7 +123,7 @@ class SettingController extends BaseController
     {
         $permanentSettings = $this->settingService->getPermanent($request->query('type'));
 
-        return response()->json(['result' => $permanentSettings]);
+        return Response::retrieved(new SettingCollection($permanentSettings));
     }
     
     /**
@@ -103,7 +136,10 @@ class SettingController extends BaseController
     {
         $permanentSettings = $this->settingService->getShortList($request->query('type'));
 
-        return response()->json(['result' => $permanentSettings]);
+        return Response::make($permanentSettings->toArray(), [
+            'type' => 'info',
+            'text' => __('response::default.actions.retrieved')
+        ]);
     }
 
     /**
@@ -115,7 +151,11 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->getBySlug($request->slug);
 
-        return response()->json(['result' => $result]);
+        if ($result) {
+            return Response::retrieved(new SettingResource($result));
+        }
+
+        return Response::notFound();
     }
 
     /**
@@ -126,32 +166,13 @@ class SettingController extends BaseController
     {
         $result = $this->settingService->getValueBySlug($request->slug);
 
-        return response()->json(['result' => $result]);
-    }
+        if ($result) {
+            return Response::make([$result], [
+                'type' => 'info',
+                'text' => __('response::default.actions.retrieved')
+            ]);
+        }
 
-    /**
-     * Activate the setting record.
-     *
-     * @param Setting $setting
-     * @return JsonResponse
-     */
-    public function activate(Setting $setting): JsonResponse
-    {
-        $result = $this->settingService->activate($setting);
-
-        return response()->json(['result' => $result]);
-    }
-
-    /**
-     * Deactivate the setting record.
-     *
-     * @param Setting $setting
-     * @return JsonResponse
-     */
-    public function deactivate(Setting $setting): JsonResponse
-    {
-        $result = $this->settingService->deactivate($setting);
-
-        return response()->json(['result' => $result]);
+        return Response::notFound();
     }
 }
