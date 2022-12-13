@@ -94,4 +94,18 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->where($key, $value)->first();
     }
+
+    /**
+     * Find record within the given range.
+     *
+     * @param string $key
+     * @param string|array|null $values
+     * @return Model
+     */
+    public function findIn(string $key, string|array $values = null): Builder|null
+    {
+        $values = is_string($values) ? [$values] : $values;
+
+        return $this->model->whereIn($key, $values);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services\BaseService\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -47,4 +48,13 @@ interface BaseRepositoryInterface
      * @return Model|null
      */
     public function findBy(string $key, string $value): Model|null;
+
+    /**
+     * Find record within the given range.
+     *
+     * @param string $key
+     * @param string|array|null $values
+     * @return Model
+     */
+    public function findIn(string $key, string|array $values = null): Builder|null;
 }

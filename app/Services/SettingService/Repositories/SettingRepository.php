@@ -25,17 +25,11 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      */
     public function getPermanent(string|array $types = null): EloquentCollection
     {
-        if (is_string($types)) {
-            $types = [$types];
-        }
-
-        if (empty($types)) {
-            $types = [
-                'info',
-                'slogan',
-                'copyright'
-            ];
-        }
+        $types = empty($types) ? [
+            'info',
+            'slogan',
+            'copyright'
+        ] : $types;
 
         return $this->model->whereIn('type', $types)->get();
     }
@@ -47,19 +41,13 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      */
     public function getShortList(string|array $types = null): Collection
     {
-        if (is_string($types)) {
-            $types = [$types];
-        }
+        $types = empty($types) ? [
+            'info',
+            'slogan',
+            'copyright'
+        ] : $types;
 
-        if (empty($types)) {
-            $types = [
-                'info',
-                'slogan',
-                'copyright'
-            ];
-        }
-
-        return $this->model->whereIn('type', $types)->pluck('value', 'slug');
+        return $this->findIn('type', $types)->pluck('value', 'slug');
     }
 
     /**
