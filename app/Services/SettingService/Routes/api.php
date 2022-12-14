@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->prefix('api')->group(function () {
 
-    Route::prefix('admin/settings')->name('admin.settings.')->group(function () {
+    Route::middleware('auth:sanctum')->prefix('admin/settings')->name('admin.settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::post('/', [SettingController::class, 'store'])->name('store');
         Route::get('/{setting}', [SettingController::class, 'show'])->name('show');
