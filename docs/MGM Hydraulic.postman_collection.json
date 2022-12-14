@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "9bd6a207-ddc9-4b01-96f6-40919944fcaf",
+		"name": "MGM Hydraulic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/settings?per_page=5",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings"
+									],
+									"query": [
+										{
+											"key": "paginate",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"آدرس شرکت\",\n    \"slug\": \"address\",\n    \"value\": \"مشهد بزرگراه آسیایی پیامبر اعظم ۷۷ آزادی 131.8 پلاک 13\",\n    \"type\": \"info\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/settings",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/settings/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"شماره موبایل\",\n    \"slug\": \"mobile\",\n    \"value\": \"09123456789\",\n    \"type\": \"info\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/settings/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/settings/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Activate",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/settings/1/activate",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings",
+										"1",
+										"activate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deactivate",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/settings/1/deactivate",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"settings",
+										"1",
+										"deactivate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Panel",
+					"item": [
+						{
+							"name": "Short list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/settings/short-list",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"settings",
+										"short-list"
+									],
+									"query": [
+										{
+											"key": "paginate",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "10",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get permanent settings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/settings/permanent?type=info",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"settings",
+										"permanent"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "info"
+										},
+										{
+											"key": "type[]",
+											"value": "info",
+											"disabled": true
+										},
+										{
+											"key": "type[]",
+											"value": "address",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get value by slug",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/settings/phone-number/value",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"settings",
+										"phone-number",
+										"value"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get setting by slug",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/settings/phone-number",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"settings",
+										"phone-number"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_url",
+			"value": "127.0.0.1:8000/api",
+			"type": "default"
+		}
+	]
+}
