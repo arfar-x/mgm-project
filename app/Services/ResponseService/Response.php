@@ -5,6 +5,7 @@ namespace App\Services\ResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Response as LaravelResponse;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -72,6 +73,7 @@ class Response
 
     /**
      * Prepare response for paginated datas.
+     * Also works when $data is passed as Collection not LengthAwarePaginator.
      * 
      * @param JsonResource $data
      * @param array $messages
@@ -81,7 +83,10 @@ class Response
      */
     public function paginate(JsonResource|array $data = [], string|array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = []): JsonResponse
     {
-        if ($data instanceof ResourceCollection) {
+        if (
+            $data instanceof ResourceCollection &&
+            $data->resource instanceof LengthAwarePaginator
+        ) {
             $meta = Arr::except($data->resource->toArray(), 'data');
             $data = $data->resource->toArray()['data'];
         }
