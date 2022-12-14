@@ -2,6 +2,7 @@
 
 namespace App\Services\AuthenticationService\Controllers;
 
+use App\Http\Controllers\Controller as BaseController;
 use App\Services\AuthenticationService\Repositories\AuthenticationRepositoryInterface;
 use App\Services\AuthenticationService\Requests\ChangePasswordRequest;
 use App\Services\AuthenticationService\Requests\LoginRequest;
@@ -12,7 +13,7 @@ use App\Services\ResponseService\Facades\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticationController
+class AuthenticationController extends BaseController
 {
     /**
      * @param AuthenticationRepositoryInterface $authService
