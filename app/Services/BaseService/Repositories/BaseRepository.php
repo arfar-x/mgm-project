@@ -27,6 +27,11 @@ class BaseRepository implements BaseRepositoryInterface
 
         $models = $this->applyFilters($models, $queries);
 
+        $models->orderBy($queries['sort_by'] ?? 'created_at', $queries['sort_direction'] ?? 'desc');
+        $models->when(isset($queries['active']), function ($models) use ($queries){
+            $models->where('status', $queries['active']);
+        });
+
         if (isset($queries['paginate']) && !$queries['paginate'])
             return $models->get();
         else
