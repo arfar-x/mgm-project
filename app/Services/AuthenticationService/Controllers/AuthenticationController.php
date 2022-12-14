@@ -7,6 +7,8 @@ use App\Services\AuthenticationService\Requests\ChangePasswordRequest;
 use App\Services\AuthenticationService\Requests\LoginRequest;
 use App\Services\AuthenticationService\Requests\RegisterRequest;
 use App\Services\AuthenticationService\Requests\UpdateRequest;
+use App\Services\AuthenticationService\Resources\UserResource;
+use App\Services\ResponseService\Facades\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +30,10 @@ class AuthenticationController
     {
         $result = $this->authService->login($request->validated());
 
-        return response()->json($result);
+        return Response::success([
+            'user' => new UserResource($result['user']),
+            'token' => $result['token']
+        ]);
     }
 
     /**
@@ -39,7 +44,7 @@ class AuthenticationController
     {
         $result = $this->authService->register($request->validated());
 
-        return response()->json($result);
+        return Response::created(new UserResource($result));
     }
 
     /**
@@ -49,7 +54,7 @@ class AuthenticationController
     {
         $result = $this->authService->logout();
 
-        return response()->json($result);
+        return Response::success(['result' => $result]);
     }
 
     /**
@@ -57,9 +62,9 @@ class AuthenticationController
      */
     public function me(): JsonResponse
     {
-        $result = $this->authService->me();
+        $user = $this->authService->me();
 
-        return response()->json($result);
+        return Response::retrieved(new UserResource($user));
     }
 
     /**
@@ -72,7 +77,7 @@ class AuthenticationController
         $user = Auth::user();
         $result = $this->authService->update($user, $request->validated());
 
-        return response()->json($result);
+        return Response::success(new UserResource($result));
     }
 
     /**
@@ -83,6 +88,6 @@ class AuthenticationController
     {
         $result = $this->authService->changePassword($request->validated());
 
-        return response()->json($result);
+        return Response::success(['result' => $result]);
     }
 }
