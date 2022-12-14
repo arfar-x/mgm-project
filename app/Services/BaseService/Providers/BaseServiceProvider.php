@@ -3,6 +3,7 @@
 namespace App\Services\BaseService\Providers;
 
 use App\Services\AuthenticationService\Providers\AuthenticationServiceProvider;
+use App\Services\ContactService\Providers\ContactServiceProvider;
 use App\Services\ResponseService\Providers\ResponseServiceProvider;
 use App\Services\SettingService\Providers\SettingServiceProvider;
 use Illuminate\Support\ServiceProvider;
@@ -19,6 +20,7 @@ class BaseServiceProvider extends ServiceProvider
         $this->app->register(SettingServiceProvider::class);
         $this->app->register(ResponseServiceProvider::class);
         $this->app->register(AuthenticationServiceProvider::class);
+        $this->app->register(ContactServiceProvider::class);
     }
 
     /**
