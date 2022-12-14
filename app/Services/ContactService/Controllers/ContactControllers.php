@@ -31,7 +31,7 @@ class ContactControllers extends BaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $result = $this->settingService->list($request->query());
+        $result = $this->contactService->list($request->query());
 
         return Response::paginate(new ContactCollection($result));
     }
@@ -48,13 +48,13 @@ class ContactControllers extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param UpdateContactRequest $request
      * @param Contact $contact
      * @return JsonResponse
      */
     public function update(UpdateContactRequest $request, Contact $contact): JsonResponse
     {
-        $result = $this->settingService->update($contact, $request->validated());
+        $result = $this->contactService->update($contact, $request->validated());
 
         return Response::updated(new ContactResource($result));
     }
@@ -78,7 +78,8 @@ class ContactControllers extends BaseController
 
     /**
      * Store a new contact record.
-     *
+     * 
+     * @param CreateContactRequest $request
      * @return JsonResponse
      */
     public function store(CreateContactRequest $request)
