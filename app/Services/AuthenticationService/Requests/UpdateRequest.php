@@ -24,8 +24,10 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'min:3'],
-            'last_name' => ['required', 'string', 'min:3'],
+            'first_name' => ['required', 'sometimes', 'string', 'min:3'],
+            'last_name' => ['required', 'sometimes', 'string', 'min:3'],
+            'phone_number' => ['required', 'sometimes', 'string', 'unique:users,phone_number', 'regex:/^(\+[0-9][0-9]{1,}|09[0-9]{9})+$/iu'],
+            'email' => ['required', 'email', 'sometimes', 'unique:users,email']
         ];
     }
 }
