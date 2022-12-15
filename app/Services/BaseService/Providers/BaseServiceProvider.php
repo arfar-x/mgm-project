@@ -4,6 +4,7 @@ namespace App\Services\BaseService\Providers;
 
 use App\Services\AuthenticationService\Providers\AuthenticationServiceProvider;
 use App\Services\ContactService\Providers\ContactServiceProvider;
+use App\Services\MediaService\Providers\MediaServiceProvider;
 use App\Services\ProductService\Providers\ProductServiceProvider;
 use App\Services\ResponseService\Providers\ResponseServiceProvider;
 use App\Services\SettingService\Providers\SettingServiceProvider;
@@ -23,6 +24,7 @@ class BaseServiceProvider extends ServiceProvider
         $this->app->register(AuthenticationServiceProvider::class);
         $this->app->register(ContactServiceProvider::class);
         $this->app->register(ProductServiceProvider::class);
+        $this->app->register(MediaServiceProvider::class);
     }
 
     /**

@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Services\MediaService\Controllers;
+
+use App\Http\Controllers\Controller as BaseController;
+use App\Services\MediaService\Repositories\MediaRepositoryInterface;
+use App\Services\MediaService\Requests\UploadFileRequest;
+use App\Services\MediaService\Resources\MediaCollection;
+use App\Services\ResponseService\Facades\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+class MediaController extends BaseController
+{
+    /**
+     * @param MediaRepositoryInterface $mediaService
+     */
+    public function __construct(protected MediaRepositoryInterface $mediaService)
+    {
+        //
+    }
+
+    /**
+     * Upload the file and store to storage.
+     *
+     * @return void
+     */
+    public function upload(UploadFileRequest $request): JsonResponse
+    {
+        $result = $this->mediaService->upload($request->file('files'), Arr::except($request->validated(), 'files'));
+
+        return Response::success(new MediaCollection($result));
+    }
+
+    /**
+     * Prepare the response for downloading the file.
+     *
+     * @return void
+     */
+    public function download(Request $request): BinaryFileResponse
+    {
+        $filePath = $this->mediaService->getFilePath($request->uuid);
+
+        return response()->download($filePath);
+    }
+}
