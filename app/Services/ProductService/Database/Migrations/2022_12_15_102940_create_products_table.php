@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->text('body');
-            $table->string('cover');
-            $table->string('gallery');
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->text('body')->nullable();
+            $table->string('cover')->nullable();
+            $table->string('gallery')->nullable();
             $table->timestamps();
         });
     }

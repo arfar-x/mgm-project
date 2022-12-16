@@ -24,7 +24,11 @@ class CreateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            // TODO Complete it
+            // TODO Incomplete
+            'title' => ['required', 'sometimes', 'string'],
+            'slug' => ['required', 'sometimes', 'string'],
+            'files' => ['required', 'sometimes', 'array'],
+            'files.*' => ['required', 'mimetypes:image/jpeg,image/png,image/webp,image/bmp', 'max:3000']
         ];
     }
 }

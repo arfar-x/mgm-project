@@ -3,6 +3,8 @@
 namespace App\Services\ProductService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\MediaService\Requests\UploadFileRequest;
+use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ProductService\Models\Product;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService\Requests\CreateProductRequest;
@@ -12,6 +14,7 @@ use App\Services\ProductService\Resources\ProductResource;
 use App\Services\ResponseService\Facades\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ProductController extends BaseController
 {
@@ -87,6 +90,18 @@ class ProductController extends BaseController
         $result = $this->productService->deactivate($product);
 
         return Response::success(new ProductResource($result));
+    }
+
+    /**
+     * Upload the file and store to storage.
+     *
+     * @return void
+     */
+    public function upload(UploadFileRequest $request): JsonResponse
+    {
+        $result = $this->productService->upload($request->file('files'), Arr::except($request->validated(), 'files'));
+
+        return Response::success(new MediaCollection($result));
     }
 
     /** General (Panel & Admin) methods */

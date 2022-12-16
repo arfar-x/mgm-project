@@ -11,5 +11,5 @@ class MediaCollection extends JsonResource
      *
      * @var \Illuminate\Support\Collection
      */
-    public $collection = MediaCollection::class;
+    public $collection = MediaResource::class;
 }

@@ -14,7 +14,7 @@ interface MediableInterface
      * @param array $parameters
      * @return Model
      */
-    public function upload(array $files, array $parameters = []): Collection;
+    public function upload(array $files, array $parameters = [], Model $model = null): Collection;
 
     /**
      * Get the path of a file.

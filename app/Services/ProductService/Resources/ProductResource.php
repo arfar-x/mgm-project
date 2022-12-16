@@ -2,6 +2,7 @@
 
 namespace App\Services\ProductService\Resources;
 
+use App\Services\MediaService\Resources\MediaCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -23,6 +24,7 @@ class ProductResource extends JsonResource
             'cover' => $this->cover,
             'gallery' => $this->gallery,
             'status' => $this->status,
+            'media' => new MediaCollection($this->mediable),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

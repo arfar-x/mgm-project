@@ -10,10 +10,10 @@ class MediaRepository implements MediaRepositoryInterface
     use Mediable;
 
     /**
-     * @param Model $model
+     * @param Media $model
      */
     public function __construct(protected Media $model)
     {
-        //
+        $this->initMediable($model);
     }
 }
