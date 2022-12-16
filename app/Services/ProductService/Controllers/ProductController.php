@@ -108,6 +108,22 @@ class ProductController extends BaseController
         return Response::success(new MediaCollection($result));
     }
 
+    /**
+     * Upload file for a specific product and store to storage.
+     *
+     * @return JsonResponse
+     */
+    public function deleteFile(Request $request, Product $product): JsonResponse
+    {
+        $result = $this->productService->deleteFile($product, $request->uuid);
+
+        if ($result) {
+            return Response::deleted(['result' => $result]);
+        }
+
+        return Response::error(['result' => $result]);
+    }
+
     /** General (Panel & Admin) methods */
 
     /**

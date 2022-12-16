@@ -17,6 +17,15 @@ interface MediableInterface
     public function upload(array $files, array $parameters = [], Model $model = null): Collection;
 
     /**
+     * Delete a linked file with the relation.
+     *
+     * @param Model $model
+     * @param string $uuid
+     * @return boolean
+     */
+    public function deleteFile(Model $model, string $uuid): bool;
+
+    /**
      * Get the path of a file.
      * This is useful when /public directory is not linked to /storage.
      * 

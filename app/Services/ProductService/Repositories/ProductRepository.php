@@ -44,4 +44,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         return $product;
     }
+
+    // public function deleteFile(Product $product, string $uuid): Product
+    // {
+    //     return $product->mediable()->where('uuid', $uuid)->delete();
+    // }
 }
