@@ -24,7 +24,11 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            // TODO Complete it
+            'title' => ['required', 'sometimes', 'string', 'min:3'],
+            'slug' => ['required', 'sometimes', 'string', 'min:3'],
+            'body' => ['required', 'sometimes', 'string'],
+            'files' => ['required', 'sometimes', 'array'],
+            'files.*' => ['required', 'mimetypes:image/jpeg,image/png,image/webp,image/bmp', 'max:3000']
         ];
     }
 }
