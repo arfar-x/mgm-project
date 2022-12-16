@@ -95,7 +95,7 @@ class ProductController extends BaseController
     /**
      * Upload file for a specific product and store to storage.
      *
-     * @return void
+     * @return JsonResponse
      */
     public function upload(UploadProductFileRequest $request, Product $product): JsonResponse
     {

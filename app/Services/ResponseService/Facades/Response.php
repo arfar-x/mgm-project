@@ -2,6 +2,7 @@
 
 namespace App\Services\ResponseService\Facades;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Facade;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 

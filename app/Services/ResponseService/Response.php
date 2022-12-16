@@ -21,7 +21,7 @@ class Response
      * @param array $meta
      * @return JsonResponse
      */
-    public function make(JsonResource|array $data = [], array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = [])
+    public function make(JsonResource|array $data = [], array $messages = [], int $statusCode = SymfonyResponse::HTTP_OK, array $meta = []): JsonResponse
     {
         return LaravelResponse::json(
             [
