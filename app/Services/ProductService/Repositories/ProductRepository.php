@@ -38,6 +38,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         $files = $this->upload($files, model: $product);
 
+        $product->update([
+            'cover' => $files->first()->uuid
+        ]);
+
         return $product;
     }
 }
