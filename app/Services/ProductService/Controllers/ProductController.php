@@ -3,12 +3,12 @@
 namespace App\Services\ProductService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
-use App\Services\MediaService\Requests\UploadFileRequest;
 use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ProductService\Models\Product;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService\Requests\CreateProductRequest;
 use App\Services\ProductService\Requests\UpdateProductRequest;
+use App\Services\ProductService\Requests\UploadProductFileRequest;
 use App\Services\ProductService\Resources\ProductCollection;
 use App\Services\ProductService\Resources\ProductResource;
 use App\Services\ResponseService\Facades\Response;
@@ -93,13 +93,17 @@ class ProductController extends BaseController
     }
 
     /**
-     * Upload the file and store to storage.
+     * Upload file for a specific product and store to storage.
      *
      * @return void
      */
-    public function upload(UploadFileRequest $request): JsonResponse
+    public function upload(UploadProductFileRequest $request, Product $product): JsonResponse
     {
-        $result = $this->productService->upload($request->file('files'), Arr::except($request->validated(), 'files'));
+        $result = $this->productService->upload(
+            $request->file('files'),
+            Arr::except($request->validated(), 'files'),
+            $product
+        );
 
         return Response::success(new MediaCollection($result));
     }
