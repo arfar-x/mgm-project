@@ -10,7 +10,8 @@ Route::middleware('api')->prefix('api')->group(function () {
         Route::middleware('auth:sanctum')
             ->post('upload', [MediaController::class, 'upload'])->name('upload');
 
-        Route::get('{uuid}', [MediaController::class, 'download'])->name('download');
+        Route::delete('{uuid}', [MediaController::class, 'deleteFile'])->name('delete-file');
+        Route::get('{type}/{uuid}', [MediaController::class, 'download'])->name('download');
 
     });
 });

@@ -3,6 +3,7 @@
 namespace App\Services\ProductService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\MediaService\Repositories\MediaRepositoryInterface;
 use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ProductService\Models\Product;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
@@ -20,27 +21,39 @@ class ProductController extends BaseController
 {
     /**
      * @param ProductRepositoryInterface $productService
+     * @param MediaRepositoryInterface $mediaService
      */
-    public function __construct(protected ProductRepositoryInterface $productService)
-    {
+    public function __construct(
+        protected ProductRepositoryInterface $productService,
+        protected MediaRepositoryInterface $mediaService
+    ) {
         //
     }
 
     /** Admin methods */
 
     /**
-     * @param Request $request
+     * @param CreateProductRequest $request
      * @return JsonResponse
      */
     public function store(CreateProductRequest $request): JsonResponse
     {
-        $result = $this->productService->create($request->validated());
+        $parameters = Arr::except($request->validated(), 'files');
+        $files = $request->validated()['files'] ?? [];
 
-        return Response::created(new ProductResource($result));
+        $product = $this->productService->create($parameters);
+        
+        $files = $this->mediaService->upload($files, model: $product);
+
+        if ($files->isNotEmpty()) {
+            $this->productService->setCoverUuid($product, $files->first()->uuid);
+        }
+
+        return Response::created(new ProductResource($product));
     }
 
     /**
-     * @param Request $request
+     * @param UpdateProductRequest $request
      * @param Product $product
      * @return JsonResponse
      */
@@ -99,7 +112,7 @@ class ProductController extends BaseController
      */
     public function upload(UploadProductFileRequest $request, Product $product): JsonResponse
     {
-        $result = $this->productService->upload(
+        $result = $this->mediaService->upload(
             $request->file('files'),
             Arr::except($request->validated(), 'files'),
             $product
@@ -109,13 +122,13 @@ class ProductController extends BaseController
     }
 
     /**
-     * Upload file for a specific product and store to storage.
+     * Delete file for a specific product by given UUID.
      *
      * @return JsonResponse
      */
     public function deleteFile(Request $request, Product $product): JsonResponse
     {
-        $result = $this->productService->deleteFile($product, $request->uuid);
+        $result = $this->mediaService->deleteFile($request->uuid, $product);
 
         if ($result) {
             return Response::deleted(['result' => $result]);

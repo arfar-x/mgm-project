@@ -41,8 +41,26 @@ class MediaController extends BaseController
      */
     public function download(Request $request): BinaryFileResponse
     {
-        $filePath = $this->mediaService->getFilePath($request->uuid);
+        $filePath = $this->mediaService->getFilePath($request->type, $request->uuid);
 
         return response()->download($filePath);
+    }
+
+    /**
+     * Delete file by given UUID.
+     *
+     * @return JsonResponse
+     */
+    public function deleteFile(Request $request): JsonResponse
+    {
+        $result = $this->mediaService->deleteFile($request->uuid);
+
+        if ($result) {
+            return Response::deleted(['result' => $result]);
+        } elseif (is_null($result)) {
+            return Response::notFound();
+        }
+
+        return Response::error(['result' => $result]);
     }
 }
