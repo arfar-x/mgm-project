@@ -5,6 +5,7 @@ namespace App\Services\ProductService\Models;
 use App\Services\MediaService\Models\Media;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Product extends Model
@@ -32,5 +33,13 @@ class Product extends Model
     public function mediable(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(Attribute::class);
     }
 }
