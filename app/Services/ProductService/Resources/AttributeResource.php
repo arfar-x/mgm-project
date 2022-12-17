@@ -2,10 +2,9 @@
 
 namespace App\Services\ProductService\Resources;
 
-use App\Services\MediaService\Resources\MediaCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class AttributeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,12 +18,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'body' => $this->body,
-            'cover' => $this->cover,
-            'gallery' => $this->gallery,
-            'status' => $this->status,
-            'media' => new MediaCollection($this->mediable),
-            'attributes' => new AttributeCollection($this->attributes),
+            'type' => $this->type,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

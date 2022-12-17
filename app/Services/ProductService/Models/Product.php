@@ -5,7 +5,7 @@ namespace App\Services\ProductService\Models;
 use App\Services\MediaService\Models\Media;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Product extends Model
@@ -36,10 +36,10 @@ class Product extends Model
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function attributes(): HasMany
+    public function attributes(): BelongsToMany
     {
-        return $this->hasMany(Attribute::class);
+        return $this->belongsToMany(Attribute::class);
     }
 }

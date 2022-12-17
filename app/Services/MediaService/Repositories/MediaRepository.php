@@ -73,25 +73,60 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
 
         if ($file) {
             File::delete("$file->path/$uuid.$file->mime");
-            return $file->delete();
+            
+            if ($model instanceof Relation) {
+                return $mediaModel->detach();
+            } else {
+                return $file->delete();
+            }
+
         }
 
         return null;
     }
 
     /**
+     * Delete all files of a model.
+     *
+     * @param Model|null $model
+     * @return bool
+     */
+    public function deleteAllFiles(Model $model = null): bool
+    {
+        $mediaModel = $model ? $model->mediable() : $this->model;
+
+        $files = collect();
+        foreach ($mediaModel->get() as $file) {
+            $files->push("$file->path/$file->uuid.$file->mime");
+        }
+        File::delete($files->toArray());
+
+        if ($model instanceof Relation) {
+            return $mediaModel->detach();
+        } else {
+            return $mediaModel->delete();
+        }
+    }
+
+    /**
      * Get the path of a file.
      * This is useful when /public directory is not linked to /storage.
      * 
+     * @param string $type
      * @param string $uuid
-     * @return Model
+     * @return string|null
      */
-    public function getFilePath(string $type, string $uuid): string
+    public function getFilePath(string $type, string $uuid): string|null
     {
         $file = $this->model->where('uuid', $uuid)->first();
-        $fileName = "{$file->uuid}.{$file->mime}";
+        
+        if ($file) {
+            $fileName = "{$file->uuid}.{$file->mime}";
 
-        return storage_path("app/public/$type") . "/$fileName";
+            return storage_path("app/public/$type") . "/$fileName";
+        }
+
+        return null;
     }
 
     /**

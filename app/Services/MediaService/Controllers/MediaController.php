@@ -39,11 +39,15 @@ class MediaController extends BaseController
      *
      * @return void
      */
-    public function download(Request $request): BinaryFileResponse
+    public function download(Request $request): BinaryFileResponse|JsonResponse
     {
         $filePath = $this->mediaService->getFilePath($request->type, $request->uuid);
 
-        return response()->download($filePath);
+        if ($filePath) {
+            return response()->download($filePath);
+        }
+
+        return Response::notFound();
     }
 
     /**

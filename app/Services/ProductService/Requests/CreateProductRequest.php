@@ -28,7 +28,10 @@ class CreateProductRequest extends FormRequest
             'slug' => ['required', 'sometimes', 'string', 'min:3'],
             'body' => ['required', 'sometimes', 'string'],
             'files' => ['required', 'sometimes', 'array'],
-            'files.*' => ['required', 'mimetypes:image/jpeg,image/png,image/webp,image/bmp', 'max:3000']
+            'files.*' => ['required', 'mimetypes:image/jpeg,image/png,image/webp,image/bmp', 'max:3000'],
+            'attributes' => ['required', 'sometimes', 'array'],
+            'attributes.*' => ['required', 'array'],
+            'attributes.*.*' => ['required', 'string']
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\ProductService\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @param string $title
@@ -24,10 +24,10 @@ class Attribute extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function product(): BelongsTo
+    public function products(): BelongsToMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }

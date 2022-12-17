@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller as BaseController;
 use App\Services\MediaService\Repositories\MediaRepositoryInterface;
 use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ProductService\Models\Product;
+use App\Services\ProductService\Repositories\AttributeRepositoryInterface;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService\Requests\CreateProductRequest;
 use App\Services\ProductService\Requests\UpdateProductRequest;
@@ -25,7 +26,8 @@ class ProductController extends BaseController
      */
     public function __construct(
         protected ProductRepositoryInterface $productService,
-        protected MediaRepositoryInterface $mediaService
+        protected MediaRepositoryInterface $mediaService,
+        protected AttributeRepositoryInterface $attributeRepository
     ) {
         //
     }
@@ -49,6 +51,10 @@ class ProductController extends BaseController
             $this->productService->setCoverUuid($product, $files->first()->uuid);
         }
 
+        if ($request->has('attributes')) {
+            $this->attributeRepository->setProductAttributes($product, $request->input('attributes'));
+        }
+
         return Response::created(new ProductResource($product));
     }
 
@@ -59,9 +65,25 @@ class ProductController extends BaseController
      */
     public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        $result = $this->productService->update($product, $request->validated());
+        $parameters = Arr::except($request->validated(), 'files');
+        $files = $request->validated()['files'] ?? collect();
 
-        return Response::updated(new ProductResource($result));
+        $product = $this->productService->update($product, $parameters);
+        
+        if ($files) {
+            $this->mediaService->deleteAllFiles($product);
+            $files = $this->mediaService->upload($files->toArray(), model: $product);
+        }
+
+        if ($files->isNotEmpty()) {
+            $this->productService->setCoverUuid($product, $files->first()->uuid);
+        }
+
+        if ($request->has('attributes')) {
+            $this->attributeRepository->updateProductAttributes($product, $request->input('attributes'));
+        }
+
+        return Response::updated(new ProductResource($product));
     }
 
     /**
@@ -132,6 +154,8 @@ class ProductController extends BaseController
 
         if ($result) {
             return Response::deleted(['result' => $result]);
+        } elseif (is_null($result)) {
+            return Response::notFound();
         }
 
         return Response::error(['result' => $result]);
