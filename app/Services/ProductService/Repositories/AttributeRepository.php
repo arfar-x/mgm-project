@@ -34,19 +34,14 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
      *
      * @param Product $product
      * @param array $attributes
-     * @return void
+     * @return array
      */
-    public function updateProductAttributes(Product $product, array $attributes): void
+    public function updateProductAttributes(Product $product, array $attributes): array
     {
-        dd($product->attributes()->delete());
-        $attributeCollection = collect();
+        $oldAttributes = $product->attributes()->get()->pluck('id');
+        
+        $this->model->destroy($oldAttributes->toArray());
 
-        foreach ($attributes as $attribute) {
-            if ($product->attributes()->update($attribute)) {
-                // $attributeCollection->push($attribute->)
-            }
-        }
-
-        return ;
+        return $product->attributes()->createMany($attributes);
     }
 }

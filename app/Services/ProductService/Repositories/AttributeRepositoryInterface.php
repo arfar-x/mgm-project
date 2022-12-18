@@ -23,7 +23,7 @@ interface AttributeRepositoryInterface extends BaseRepositoryInterface
      *
      * @param Product $product
      * @param array $attributes
-     * @return void
+     * @return array
      */
-    public function updateProductAttributes(Product $product, array $attributes): void;
+    public function updateProductAttributes(Product $product, array $attributes): array;
 }

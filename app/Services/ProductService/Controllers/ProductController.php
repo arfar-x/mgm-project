@@ -65,19 +65,9 @@ class ProductController extends BaseController
      */
     public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        $parameters = Arr::except($request->validated(), 'files');
-        $files = $request->validated()['files'] ?? collect();
+        $parameters = Arr::except($request->validated(), ['files', 'attributes']);
 
         $product = $this->productService->update($product, $parameters);
-        
-        if ($files) {
-            $this->mediaService->deleteAllFiles($product);
-            $files = $this->mediaService->upload($files->toArray(), model: $product);
-        }
-
-        if ($files->isNotEmpty()) {
-            $this->productService->setCoverUuid($product, $files->first()->uuid);
-        }
 
         if ($request->has('attributes')) {
             $this->attributeRepository->updateProductAttributes($product, $request->input('attributes'));
