@@ -151,6 +151,18 @@ class ProductController extends BaseController
         return Response::error(['result' => $result]);
     }
 
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @return 
+     */
+    public function setCover(Request $request, Product $product): JsonResponse
+    {
+        $result = $this->productService->setCoverUuid($product, $request->uuid);
+
+        return Response::success(new ProductResource($result));
+    }
+
     /** General (Panel & Admin) methods */
 
     /**
