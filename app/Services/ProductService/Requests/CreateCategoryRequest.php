@@ -28,6 +28,9 @@ class CreateCategoryRequest extends FormRequest
             'slug' => ['required', 'string', 'min:3'],
             'position' => ['required', 'numeric', 'min:1'],
             'cover' => ['required', 'sometimes', 'string'],
+            'status' => ['required', 'sometimes', 'bool'],
+            'files' => ['required', 'sometimes', 'array'],
+            'files.*' => ['required', 'mimetypes:image/jpeg,image/png,image/webp,image/bmp', 'max:3000'],
         ];
     }
 }

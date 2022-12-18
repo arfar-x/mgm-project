@@ -2,8 +2,10 @@
 
 namespace App\Services\ProductService\Models;
 
+use App\Services\MediaService\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -45,5 +47,13 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function mediable(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'mediable');
     }
 }

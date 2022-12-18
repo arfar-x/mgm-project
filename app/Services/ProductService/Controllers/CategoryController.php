@@ -4,13 +4,13 @@ namespace App\Services\ProductService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\Services\MediaService\Repositories\MediaRepositoryInterface;
+use App\Services\MediaService\Requests\UploadFileRequest;
 use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ProductService\Models\Category;
 use App\Services\ProductService\Repositories\CategoryRepositoryInterface;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService\Requests\CreateCategoryRequest;
 use App\Services\ProductService\Requests\UpdateCategoryRequest;
-use App\Services\ProductService\Requests\UploadProductFileRequest;
 use App\Services\ProductService\Resources\CategoryCollection;
 use App\Services\ProductService\Resources\CategoryResource;
 use App\Services\ProductService\Resources\ProductCollection;
@@ -47,11 +47,11 @@ class CategoryController extends BaseController
 
         $category = $this->categoryRepository->create($parameters);
         
-        // $files = $this->mediaService->upload($files, model: $category);
+        $files = $this->mediaService->upload($files, model: $category);
 
-        // if ($files->isNotEmpty()) {
-        //     $this->categoryService->setCoverUuid($category, $files->first()->uuid);
-        // }
+        if ($files->isNotEmpty()) {
+            $this->categoryRepository->setCoverUuid($category, $files->first()->uuid);
+        }
 
         return Response::created(new CategoryResource($category));
     }
@@ -114,20 +114,21 @@ class CategoryController extends BaseController
     /**
      * Upload file for a specific product and store to storage.
      *
-     * @param UploadProductFileRequest $request
+     * @param UploadFileRequest $request
      * @param Category $category
      * @return JsonResponse
      */
-    public function upload(UploadProductFileRequest $request, Category $category): JsonResponse
+    public function upload(UploadFileRequest $request, Category $category): JsonResponse
     {
-        // TODO Fix request
-        $result = $this->mediaService->upload(
+        $file = $this->mediaService->upload(
             $request->file('files'),
             Arr::except($request->validated(), 'files'),
             $category
         );
 
-        return Response::success(new MediaCollection($result));
+        $this->categoryRepository->setCoverUuid($category, $file->first()->uuid->toString());
+
+        return Response::success(new MediaCollection($file));
     }
 
     /**
@@ -139,11 +140,15 @@ class CategoryController extends BaseController
      */
     public function deleteFile(Request $request, Category $category): JsonResponse
     {
-        // TODO Incomplete
         $result = $this->mediaService->deleteFile($request->uuid, $category);
 
         if ($result) {
+
+            // Set category cover to null
+            $this->categoryRepository->setCoverUuid($category);
+            
             return Response::deleted(['result' => $result]);
+            
         } elseif (is_null($result)) {
             return Response::notFound();
         }
@@ -158,10 +163,9 @@ class CategoryController extends BaseController
      */
     public function setCover(Request $request, Category $category): JsonResponse
     {
-        // TODO Incomplete
         $result = $this->categoryRepository->setCoverUuid($category, $request->uuid);
 
-        return Response::success(new CategoryResource('result'));
+        return Response::success(new CategoryResource($result));
     }
 
     /** General (Panel & Admin) methods */

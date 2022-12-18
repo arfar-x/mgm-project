@@ -11,8 +11,8 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
      * Set category's cover by given UUID.
      *
      * @param Category $category
-     * @param string $uuid
+     * @param string|null $uuid
      * @return Category
      */
-    public function setCoverUuid(Category $category, string $uuid): Category;
+    public function setCoverUuid(Category $category, string $uuid = null): Category;
 }
