@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('cover')->nullable();
             $table->string('gallery')->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

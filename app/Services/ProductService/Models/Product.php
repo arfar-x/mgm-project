@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  * @param string $body
  * @param string $cover
  * @param string $gallery
+ * @param bool $status
  * @param Carbon $created_at
  * @param Carbon $updated_at
  */
@@ -34,6 +35,7 @@ class Product extends Model
         'body',
         'cover',
         'gallery',
+        'status',
         'created_at',
         'updated_at'
     ];
