@@ -8,6 +8,7 @@ use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ProductService\Models\Product;
 use App\Services\ProductService\Repositories\AttributeRepositoryInterface;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
+use App\Services\ProductService\Requests\ChangeProductCategoryRequest;
 use App\Services\ProductService\Requests\CreateProductRequest;
 use App\Services\ProductService\Requests\UpdateProductRequest;
 use App\Services\ProductService\Requests\UploadProductFileRequest;
@@ -161,6 +162,22 @@ class ProductController extends BaseController
         $result = $this->productService->setCoverUuid($product, $request->uuid);
 
         return Response::success(new ProductResource($result));
+    }
+
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function changeCategory(ChangeProductCategoryRequest $request, Product $product): JsonResponse
+    {
+        $result = $this->productService->changeCategory($product, $request->validated());
+
+        if ($result) {
+            return Response::success(['result' => $result]);
+        }
+
+        return Response::error(['result' => $result]);
     }
 
     /** General (Panel & Admin) methods */

@@ -12,6 +12,7 @@ Route::middleware('api')->prefix('api')->group(function () {
 
         Route::prefix('products')->name('products.')->group(function () {
 
+            Route::patch('/{product}/change-category', [ProductController::class, 'changeCategory'])->name('change-category');
             Route::patch('/{product}/activate', [ProductController::class, 'activate'])->name('activate');
             Route::patch('/{product}/deactivate', [ProductController::class, 'deactivate'])->name('deactivate');
             Route::post('/{product}/upload', [ProductController::class, 'upload'])->name('upload');

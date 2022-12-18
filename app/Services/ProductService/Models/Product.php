@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
 
 /**
+ * @param int $category_id
  * @param string $title
  * @param string $slug
  * @param string $body
@@ -30,6 +31,7 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'category_id',
         'title',
         'slug',
         'body',

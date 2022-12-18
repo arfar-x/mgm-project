@@ -5,8 +5,10 @@ namespace App\Services\ProductService\Repositories;
 use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\ProductService\Models\Category;
 use App\Services\ProductService\Models\Product;
+use Illuminate\Database\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -51,6 +53,27 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             return $models->get();
         } else {
             return $models->paginate($queries['per_page'] ?? $this->model->getPerPage());
+        }
+    }
+
+    /**
+     * Change product category explicitly.
+     *
+     * @param Product $product
+     * @param array $parameters
+     * @return Product|boolean
+     */
+    public function changeCategory(Product $product, array $parameters): Product|bool
+    {
+        try {
+
+            return $this->update($product, ['category_id' => $parameters['category_id']]);
+
+        } catch (QueryException $exception) {
+
+            Log::error("Product ID: $product->id: " . $exception->getMessage());
+
+            return false;
         }
     }
 }

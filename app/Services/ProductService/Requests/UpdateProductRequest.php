@@ -28,6 +28,7 @@ class UpdateProductRequest extends FormRequest
             'title' => ['required', 'sometimes', 'string', 'min:3'],
             'slug' => ['required', 'sometimes', 'string', 'min:3'],
             'body' => ['required', 'sometimes', 'string'],
+            'status' => ['required', 'sometimes', 'bool'],
             'attributes' => ['required', 'sometimes', 'array'],
             'attributes.*' => ['required', 'array'],
             'attributes.*.*' => ['required', 'string']

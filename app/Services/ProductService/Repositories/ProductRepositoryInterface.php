@@ -24,4 +24,13 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
      * @return Collection
      */
     public function getProductsByCategory(Category $category, array $queries = []): LengthAwarePaginator|Collection;
+
+    /**
+     * Change product category explicitly.
+     *
+     * @param Product $product
+     * @param array $parameters
+     * @return Product|boolean
+     */
+    public function changeCategory(Product $product, array $parameters): Product|bool;
 }
