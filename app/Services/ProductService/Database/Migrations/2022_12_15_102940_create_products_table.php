@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('cover')->nullable();
             $table->string('gallery')->nullable();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('product_categories')->nullOnDelete();
         });
     }
 
