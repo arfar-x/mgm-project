@@ -81,7 +81,7 @@ class ProductController extends BaseController
      * @param Product $product
      * @return JsonResponse
      */
-    public function delete(Product $product): JsonResponse
+    public function destroy(Product $product): JsonResponse
     {
         $result = $this->productService->destroy($product);
 
