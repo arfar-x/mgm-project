@@ -97,7 +97,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function findBy(string $key, string $value): Model|null
     {
-        return $this->model->where($key, $value)->first();
+        return $this->model->where($key, $value)->firstOrFail();
     }
 
     /**
