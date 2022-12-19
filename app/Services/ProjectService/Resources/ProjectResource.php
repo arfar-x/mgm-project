@@ -3,6 +3,7 @@
 namespace App\Services\ProjectService\Resources;
 
 use App\Services\MediaService\Resources\MediaCollection;
+use App\Services\TagService\Resources\TagCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectResource extends JsonResource
@@ -24,6 +25,7 @@ class ProjectResource extends JsonResource
             'gallery' => $this->gallery,
             'status' => $this->status,
             'media' => new MediaCollection($this->mediable),
+            'tags' => new TagCollection($this->taggable),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
