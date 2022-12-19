@@ -16,6 +16,10 @@ class ProjectResource extends JsonResource
      */
     public function toArray($request)
     {
+        $media = (new MediaCollection($this->mediable))->map(function () {
+
+        });
+        
         return [
             'id' => $this->id,
             'title' => $this->title,
