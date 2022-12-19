@@ -16,6 +16,8 @@ Route::middleware('api')->prefix('api')->group(function () {
             Route::patch('/{product}/activate', [ProductController::class, 'activate'])->name('activate');
             Route::patch('/{product}/deactivate', [ProductController::class, 'deactivate'])->name('deactivate');
             Route::post('/{product}/upload', [ProductController::class, 'upload'])->name('upload');
+            Route::get('/{product}/tags', [ProductController::class, 'getTags'])->name('get-tags');
+            Route::patch('/{product}/tags/sync', [ProductController::class, 'syncTags'])->name('sync-tags');
             Route::delete('/{product}/{uuid}', [ProductController::class, 'deleteFile'])->name('delete-file');
             Route::patch('/{product}/{uuid}', [ProductController::class, 'setCover'])->name('set-cover');
         });
@@ -44,6 +46,8 @@ Route::middleware('api')->prefix('api')->group(function () {
 
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/{product}', [ProductController::class, 'show'])->name('show');
+
+        Route::get('/{product}/tags', [ProductController::class, 'getTags'])->name('get-tags');
 
     });
 });

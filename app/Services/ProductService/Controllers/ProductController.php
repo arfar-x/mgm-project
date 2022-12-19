@@ -15,6 +15,8 @@ use App\Services\ProductService\Requests\UploadProductFileRequest;
 use App\Services\ProductService\Resources\ProductCollection;
 use App\Services\ProductService\Resources\ProductResource;
 use App\Services\ResponseService\Facades\Response;
+use App\Services\TagService\Repositories\TagRepositoryInterface;
+use App\Services\TagService\Resources\TagCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -24,11 +26,14 @@ class ProductController extends BaseController
     /**
      * @param ProductRepositoryInterface $productService
      * @param MediaRepositoryInterface $mediaService
+     * @param AttributeRepositoryInterface $attributeRepository
+     * @param TagRepositoryInterface $tagService
      */
     public function __construct(
         protected ProductRepositoryInterface $productService,
         protected MediaRepositoryInterface $mediaService,
-        protected AttributeRepositoryInterface $attributeRepository
+        protected AttributeRepositoryInterface $attributeRepository,
+        protected TagRepositoryInterface $tagService
     ) {
         //
     }
@@ -202,5 +207,33 @@ class ProductController extends BaseController
         $result = $this->productService->show($product);
 
         return Response::retrieved(new ProductResource($result));
+    }
+
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function getTags(Product $product): JsonResponse
+    {
+        $result = $this->productService->getTags($product);
+
+        return Response::success(new TagCollection($result));
+    }
+
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function syncTags(Request $request, Product $product): JsonResponse
+    {
+        $result = $this->tagService->syncTags($request->ids, $product);
+
+        if ($result) {
+            return Response::success($result);
+        }
+
+        return Response::error($result);
     }
 }

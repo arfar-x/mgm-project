@@ -2,13 +2,12 @@
 
 namespace App\Services\TagService\Models;
 
+use App\Services\ProductService\Models\Product;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Carbon;
 
 /**
- * @param string $mediable_type
- * @param int $mediable_id
  * @param string $title
  * @param string $slug
  * @param bool $status
@@ -23,8 +22,6 @@ class Tag extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'mediable_type',
-        'mediable_id',
         'title',
         'slug',
         'status',
@@ -35,8 +32,8 @@ class Tag extends Model
     /**
      * Implement One-to-Many Polymorphic relation.
      */
-    public function taggable(): MorphTo
+    public function products(): MorphToMany
     {
-        return $this->morphTo();
+        return $this->morphedByMany(Product::class, 'taggable');
     }
 }

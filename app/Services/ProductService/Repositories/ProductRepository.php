@@ -76,4 +76,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             return false;
         }
     }
+
+    /**
+     * @param Product $product
+     * @return Collection
+     */
+    public function getTags(Product $product): Collection
+    {
+        return $product->taggable()->get();
+    }
 }

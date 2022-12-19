@@ -33,4 +33,10 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
      * @return Product|boolean
      */
     public function changeCategory(Product $product, array $parameters): Product|bool;
+
+    /**
+     * @param Product $product
+     * @return Collection
+     */
+    public function getTags(Product $product): Collection;
 }
