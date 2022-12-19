@@ -14,6 +14,8 @@ use App\Services\ProjectService\Requests\UploadProjectFileRequest;
 use App\Services\ProjectService\Resources\ProjectCollection;
 use App\Services\ProjectService\Resources\ProjectResource;
 use App\Services\ResponseService\Facades\Response;
+use App\Services\TagService\Repositories\TagRepositoryInterface;
+use App\Services\TagService\Resources\TagCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -23,10 +25,12 @@ class ProjectController extends BaseController
     /**
      * @param ProjectRepositoryInterface $projectService
      * @param MediaRepositoryInterface $mediaService
+     * @param TagRepositoryInterface $tagService
      */
     public function __construct(
         protected ProjectRepositoryInterface $projectService,
         protected MediaRepositoryInterface $mediaService,
+        protected TagRepositoryInterface $tagService
     ) {
         //
     }
@@ -168,6 +172,34 @@ class ProjectController extends BaseController
         }
 
         return Response::error(['result' => $result]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Project $project
+     * @return JsonResponse
+     */
+    public function getTags(Project $project): JsonResponse
+    {
+        $result = $this->projectService->getTags($project);
+
+        return Response::success(new TagCollection($result));
+    }
+
+    /**
+     * @param Request $request
+     * @param Project $project
+     * @return JsonResponse
+     */
+    public function syncTags(Request $request, Project $project): JsonResponse
+    {
+        $result = $this->tagService->syncTags($request->ids, $project);
+
+        if ($result) {
+            return Response::success($result);
+        }
+
+        return Response::error($result);
     }
 
     /** General (Panel & Admin) methods */

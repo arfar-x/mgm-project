@@ -77,4 +77,13 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
             return false;
         }
     }
+
+    /**
+     * @param Project $project
+     * @return Collection
+     */
+    public function getTags(Project $project): Collection
+    {
+        return $project->taggable()->get();
+    }
 }

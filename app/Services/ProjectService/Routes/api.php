@@ -16,6 +16,8 @@ Route::middleware('api')->prefix('api')->group(function () {
             Route::patch('/{project}/activate', [ProjectController::class, 'activate'])->name('activate');
             Route::patch('/{project}/deactivate', [ProjectController::class, 'deactivate'])->name('deactivate');
             Route::post('/{project}/upload', [ProjectController::class, 'upload'])->name('upload');
+            Route::get('/{project}/tags', [ProjectController::class, 'getTags'])->name('get-tags');
+            Route::patch('/{project}/tags/sync', [ProjectController::class, 'syncTags'])->name('sync-tags');
             Route::delete('/{project}/{uuid}', [ProjectController::class, 'deleteFile'])->name('delete-file');
             Route::patch('/{project}/{uuid}', [ProjectController::class, 'setCover'])->name('set-cover');
         });

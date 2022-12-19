@@ -33,4 +33,10 @@ interface ProjectRepositoryInterface extends BaseRepositoryInterface
      * @return Project|boolean
      */
     public function changeCategory(Project $project, array $parameters): Project|bool;
+
+    /**
+     * @param Project $project
+     * @return Collection
+     */
+    public function getTags(Project $project): Collection;
 }
