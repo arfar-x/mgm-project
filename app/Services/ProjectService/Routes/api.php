@@ -1,0 +1,49 @@
+<?php
+
+use App\Services\ProjectService\Controllers\CategoryController;
+use App\Services\ProjectService\Controllers\ProjectController;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('api')->prefix('api')->group(function () {
+
+    Route::middleware('auth:sanctum')->prefix('admin')->name('admin.')->group(function () {
+
+        Route::apiResource('projects', ProjectController::class);
+
+        Route::prefix('projects')->name('projects.')->group(function () {
+
+            Route::patch('/{project}/change-category', [ProjectController::class, 'changeCategory'])->name('change-category');
+            Route::patch('/{project}/activate', [ProjectController::class, 'activate'])->name('activate');
+            Route::patch('/{project}/deactivate', [ProjectController::class, 'deactivate'])->name('deactivate');
+            Route::post('/{project}/upload', [ProjectController::class, 'upload'])->name('upload');
+            Route::delete('/{project}/{uuid}', [ProjectController::class, 'deleteFile'])->name('delete-file');
+            Route::patch('/{project}/{uuid}', [ProjectController::class, 'setCover'])->name('set-cover');
+        });
+
+        Route::prefix('categories/projects')->group(function () {
+
+            Route::get('/', [CategoryController::class, 'index'])->name('index');
+            Route::post('/', [CategoryController::class, 'store'])->name('store');
+            Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
+            Route::patch('/{category}', [CategoryController::class, 'update'])->name('update');
+            Route::delete('/{category}', [CategoryController::class, 'delete'])->name('destroy');
+
+            Route::patch('/{category}/activate', [CategoryController::class, 'activate'])->name('activate');
+            Route::patch('/{category}/deactivate', [CategoryController::class, 'deactivate'])->name('deactivate');
+            Route::post('/{category}/upload', [CategoryController::class, 'upload'])->name('upload');
+            Route::delete('/{category}/{uuid}', [CategoryController::class, 'deleteFile'])->name('delete-file');
+            Route::patch('/{category}/{uuid}', [CategoryController::class, 'setCover'])->name('set-cover');
+        });
+    });
+
+    Route::prefix('panel/projects')->name('panel.projects.')->group(function () {
+
+        Route::get('/categories', [CategoryController::class, 'index'])->name('index');
+        Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('show');
+        Route::get('/categories/{category}/get-projects', [CategoryController::class, 'getProjects'])->name('get-projects');
+
+        Route::get('/', [ProjectController::class, 'index'])->name('index');
+        Route::get('/{project}', [ProjectController::class, 'show'])->name('show');
+
+    });
+});
