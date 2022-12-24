@@ -27,11 +27,20 @@ Interface MediaRepositoryInterface extends BaseRepositoryInterface
     public function deleteFile(string $uuid, Model $model = null): bool|null;
 
     /**
+     * Delete all files of a model.
+     *
+     * @param Model|null $model
+     * @return bool
+     */
+    public function deleteAllFiles(Model $model = null): bool;
+
+    /**
      * Get the path of a file.
      * This is useful when /public directory is not linked to /storage.
      * 
-     * @param Model $Media
-     * @return Model
+     * @param string $type
+     * @param string $uuid
+     * @return string|null
      */
-    public function getFilePath(string $type, string $uuid): string;
+    public function getFilePath(string $type, string $uuid): string|null;
 }
