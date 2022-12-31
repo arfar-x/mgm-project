@@ -20,11 +20,10 @@ Route::middleware('api')->prefix('api')->group(function () {
     });
 
     Route::prefix('panel/customers')->name('panel.customers.')->group(function () {
-        
+
         Route::get('/', [CustomerController::class, 'index'])->name('index');
         Route::get('/{customer}', [CustomerController::class, 'show'])->name('show');
-        Route::post('/', [CustomerController::class, 'store'])->name('store');
-        
+
     });
 
 });
