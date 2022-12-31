@@ -15,7 +15,7 @@ class Response
     /**
      * Make the response body.
      *
-     * @param JsonResource $data
+     * @param JsonResource|array $data
      * @param array $messages
      * @param integer $statusCode
      * @param array $meta
@@ -34,8 +34,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -53,8 +53,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -67,16 +67,16 @@ class Response
                 'text' => $messages ?: __('response::default.actions.retrieved')
             ];
         }
-        
+
         return $this->make($data, $messages, $statusCode, $meta);
     }
 
     /**
-     * Prepare response for paginated datas.
+     * Prepare response for paginated data.
      * Also works when $data is passed as Collection not LengthAwarePaginator.
-     * 
-     * @param JsonResource $data
-     * @param array $messages
+     *
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -97,13 +97,13 @@ class Response
                 'text' => $messages ?: __('response::default.actions.retrieved')
             ];
         }
-        
+
         return $this->make($data, $messages, $statusCode, $meta);
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -121,8 +121,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -141,7 +141,7 @@ class Response
 
     /**
      * @param JsonResource|array $data
-     * @param array $messages
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -160,7 +160,7 @@ class Response
 
     /**
      * @param JsonResource|array $data
-     * @param array $messages
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -178,8 +178,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -197,8 +197,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -216,8 +216,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
@@ -235,8 +235,8 @@ class Response
     }
 
     /**
-     * @param JsonResource $data
-     * @param array $messages
+     * @param JsonResource|array $data
+     * @param string|array $messages
      * @param int $statusCode
      * @param array $meta
      * @return JsonResponse
