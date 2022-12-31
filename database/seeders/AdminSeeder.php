@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
                 'first_name' => 'System',
                 'last_name' => 'Administrator',
                 'username' => 'admin',
-                'phone_number' => '09111111111',
+                'mobile' => '09111111111',
                 'email' => 'admin@domain.com',
                 'password' => Hash::make('admin'),
                 'status' => true,
