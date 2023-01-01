@@ -3,6 +3,7 @@
 namespace App\Services\AuthenticationService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\AuthenticationService\Models\User;
 use App\Services\AuthenticationService\Repositories\AuthenticationRepositoryInterface;
 use App\Services\AuthenticationService\Requests\ChangePasswordRequest;
 use App\Services\AuthenticationService\Requests\LoginRequest;
@@ -31,10 +32,14 @@ class AuthenticationController extends BaseController
     {
         $result = $this->authService->login($request->validated());
 
-        return Response::success([
-            'user' => new UserResource($result['user']),
-            'token' => $result['token']
-        ]);
+        if ($result) {
+            return Response::success([
+                'user' => new UserResource($result['user']),
+                'token' => $result['token']
+            ]);
+        }
+
+        return Response::error(['result' => false]);
     }
 
     /**
