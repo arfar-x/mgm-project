@@ -10,6 +10,7 @@ use App\Services\ProjectService\Models\Category;
 use App\Services\ProjectService\Repositories\CategoryRepositoryInterface;
 use App\Services\ProjectService\Repositories\ProjectRepositoryInterface;
 use App\Services\ProjectService\Requests\CreateCategoryRequest;
+use App\Services\ProjectService\Requests\SetCoverRequest;
 use App\Services\ProjectService\Requests\UpdateCategoryRequest;
 use App\Services\ProjectService\Resources\CategoryCollection;
 use App\Services\ProjectService\Resources\CategoryResource;
@@ -45,6 +46,7 @@ class CategoryController extends BaseController
         $parameters = Arr::except($request->validated(), 'files');
         $files = $request->validated()['files'] ?? [];
 
+        /** @var Category $category */
         $category = $this->categoryRepository->create($parameters);
 
         $files = $this->mediaService->upload($files, model: $category);
@@ -140,7 +142,7 @@ class CategoryController extends BaseController
      */
     public function deleteFile(Request $request, Category $category): JsonResponse
     {
-        $result = $this->mediaService->deleteFile($request->uuid, $category);
+        $result = $this->mediaService->deleteFile($request->uuid ?? $request->input('uuid'), $category);
 
         if ($result) {
 
@@ -157,13 +159,13 @@ class CategoryController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param SetCoverRequest $request
      * @param Category $category
      * @return JsonResponse
      */
-    public function setCover(Request $request, Category $category): JsonResponse
+    public function setCover(SetCoverRequest $request, Category $category): JsonResponse
     {
-        $result = $this->categoryRepository->setCoverUuid($category, $request->uuid);
+        $result = $this->categoryRepository->setCoverUuid($category, $request->input('uuid'));
 
         return Response::success(new CategoryResource($result));
     }
