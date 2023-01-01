@@ -42,6 +42,7 @@ class AuthenticationRepository extends BaseRepository implements AuthenticationR
      */
     public function register(array $parameters): User|bool
     {
+        $parameters['username'] = $parameters['username'] ?? $parameters['mobile'];
         $parameters['password'] = Hash::make($parameters['password']);
 
         /** @var User */
