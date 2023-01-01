@@ -4,7 +4,6 @@ namespace App\Services\AuthenticationService\Repositories;
 
 use App\Services\AuthenticationService\Models\User;
 use App\Services\BaseService\Repositories\BaseRepository;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,19 +23,17 @@ class AuthenticationRepository extends BaseRepository implements AuthenticationR
      */
     public function login(array $parameters): array|bool
     {
-        /** @var User $user */
-        $user = User::query()->where(Arr::except($parameters, 'password'))->first();
+        if (Auth::attempt($parameters)) {
+            /** @var User $user */
+            $user = Auth::user();
 
-        if (!$user || (Arr::has($parameters, 'password') && !Hash::check($parameters['password'], $user->password))) {
-            return false;
+            return [
+                'user' => $user,
+                'token' => $user->createToken(env('APP_NAME'))->plainTextToken
+            ];
         }
 
-        $token = $user->createToken(env('APP_NAME'))->plainTextToken;
-
-        return [
-            'user' => $user,
-            'token' => $token,
-        ];
+        return false;
     }
 
     /**
