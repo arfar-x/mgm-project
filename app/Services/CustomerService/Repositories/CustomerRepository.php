@@ -4,6 +4,7 @@ namespace App\Services\CustomerService\Repositories;
 
 use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\CustomerService\Models\Customer;
+use Illuminate\Database\Eloquent\Model;
 
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
 {
@@ -17,13 +18,11 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
 
     /**
      * @param Customer $customer
-     * @param string $uuid
-     * @return void
+     * @param string|null $uuid
+     * @return Customer|Model
      */
-    public function setAvatar(Customer $customer, string $uuid = null): Customer
+    public function setAvatar(Customer $customer, string $uuid = null): Customer|Model
     {
-        $customer = $this->update($customer, ['avatar' => $uuid]);
-
-        return $customer;
+        return $this->update($customer, ['avatar' => $uuid]);
     }
 }

@@ -30,11 +30,11 @@ class CustomerController extends BaseController
 
     /**
      * Store a new contact record.
-     * 
+     *
      * @param CreateCustomerRequest $request
      * @return JsonResponse
      */
-    public function store(CreateCustomerRequest $request)
+    public function store(CreateCustomerRequest $request): JsonResponse
     {
         $result = $this->customerService->create($request->validated());
 
@@ -62,10 +62,10 @@ class CustomerController extends BaseController
         $result = $this->customerService->destroy($customer);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /**
@@ -129,9 +129,9 @@ class CustomerController extends BaseController
 
             // Set customer cover to null
             $this->customerService->setAvatar($customer);
-            
+
             return Response::deleted(['result' => $result]);
-            
+
         } elseif (is_null($result)) {
             return Response::notFound();
         }
@@ -142,7 +142,7 @@ class CustomerController extends BaseController
     /**
      * @param Request $request
      * @param Customer $customer
-     * @return 
+     * @return JsonResponse
      */
     public function setAvatar(Request $request, Customer $customer): JsonResponse
     {
