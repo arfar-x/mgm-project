@@ -9,6 +9,7 @@ use App\Services\ProjectService\Models\Project;
 use App\Services\ProjectService\Repositories\ProjectRepositoryInterface;
 use App\Services\ProjectService\Requests\ChangeProjectCategoryRequest;
 use App\Services\ProjectService\Requests\CreateProjectRequest;
+use App\Services\ProjectService\Requests\SetCoverRequest;
 use App\Services\ProjectService\Requests\UpdateProjectRequest;
 use App\Services\ProjectService\Requests\UploadProjectFileRequest;
 use App\Services\ProjectService\Resources\ProjectCollection;
@@ -142,6 +143,9 @@ class ProjectController extends BaseController
         $result = $this->mediaService->deleteFile($request->uuid, $project);
 
         if ($result) {
+            // Set cover to null
+            $this->projectService->setCoverUuid($project);
+
             return Response::deleted(['result' => $result]);
         } elseif (is_null($result)) {
             return Response::notFound();
@@ -151,13 +155,13 @@ class ProjectController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param SetCoverRequest $request
      * @param Project $project
      * @return JsonResponse
      */
-    public function setCover(Request $request, Project $project): JsonResponse
+    public function setCover(SetCoverRequest $request, Project $project): JsonResponse
     {
-        $result = $this->projectService->setCoverUuid($project, $request->uuid);
+        $result = $this->projectService->setCoverUuid($project, $request->input('uuid'));
 
         return Response::success(new ProjectResource($result));
     }

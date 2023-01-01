@@ -25,10 +25,10 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
      * Set project's cover by given UUID.
      *
      * @param Project $project
-     * @param string $uuid
+     * @param string|null $uuid
      * @return Project|Model
      */
-    public function setCoverUuid(Project $project, string $uuid): Project|Model
+    public function setCoverUuid(Project $project, string $uuid = null): Project|Model
     {
         return $this->update($project, [
             'cover' => $uuid
