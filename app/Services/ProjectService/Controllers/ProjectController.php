@@ -47,6 +47,7 @@ class ProjectController extends BaseController
         $parameters = Arr::except($request->validated(), 'files');
         $files = $request->validated()['files'] ?? [];
 
+        /** @var Project $project */
         $project = $this->projectService->create($parameters);
 
         $files = $this->mediaService->upload($files, model: $project);
@@ -140,7 +141,7 @@ class ProjectController extends BaseController
      */
     public function deleteFile(Request $request, Project $project): JsonResponse
     {
-        $result = $this->mediaService->deleteFile($request->uuid, $project);
+        $result = $this->mediaService->deleteFile($request->uuid ?? $request->input('uuid'), $project);
 
         if ($result) {
             // Set cover to null
@@ -200,7 +201,7 @@ class ProjectController extends BaseController
      */
     public function syncTags(Request $request, Project $project): JsonResponse
     {
-        $result = $this->tagService->syncTags($request->ids, $project);
+        $result = $this->tagService->syncTags($request->input('ids'), $project);
 
         if ($result) {
             return Response::success($result);
