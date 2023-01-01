@@ -17,7 +17,7 @@ Route::middleware('api')->prefix('api')->group(function () {
     Route::prefix('panel/contacts')->name('panel.contacts.')->group(function () {
 
         Route::post('/', [ContactControllers::class, 'store'])->name('store');
-        
+
     });
 
 });
