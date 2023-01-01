@@ -26,13 +26,14 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'min:3'],
             'last_name' => ['required', 'string', 'min:3'],
-            'username' => ['required', 'string', 'min:3', 'unique:users,username'],
+            'username' => ['required', 'sometimes', 'string', 'min:3'],
 
-            // Numbers which start with '+' and any digits in the continuation, or the ones which start with '09' and 9 number of other digits in the continuation.
-            'mobile' => ['required', 'sometimes', 'string', 'unique:users,mobile', 'regex:/^(\+[0-9][0-9]{1,}|09[0-9]{9})+$/iu'],
+            // Numbers which start with `+` and any digits in the continuation, or the ones which start with `09` and 9 number of other digits in the continuation.
+            'mobile' => ['required', 'string', 'unique:users,mobile', 'regex:/^(\+[0-9][0-9]{1,}|09[0-9]{9})+$/iu'],
 
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'sometimes', 'email'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
+            'status' => ['required', 'sometimes', 'bool']
         ];
     }
 }

@@ -26,8 +26,8 @@ class UpdateRequest extends FormRequest
         return [
             'first_name' => ['required', 'sometimes', 'string', 'min:3'],
             'last_name' => ['required', 'sometimes', 'string', 'min:3'],
-            'mobile' => ['required', 'sometimes', 'string', 'unique:users,mobile', 'regex:/^(\+[0-9][0-9]{1,}|09[0-9]{9})+$/iu'],
-            'email' => ['required', 'email', 'sometimes', 'unique:users,email']
+            'username' => ['required', 'sometimes', 'string', 'unique:users,username'],
+            'email' => ['required', 'email', 'sometimes']
         ];
     }
 }
