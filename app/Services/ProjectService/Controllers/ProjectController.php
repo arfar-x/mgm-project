@@ -47,7 +47,7 @@ class ProjectController extends BaseController
         $files = $request->validated()['files'] ?? [];
 
         $project = $this->projectService->create($parameters);
-        
+
         $files = $this->mediaService->upload($files, model: $project);
 
         if ($files->isNotEmpty()) {
@@ -80,10 +80,10 @@ class ProjectController extends BaseController
         $result = $this->projectService->destroy($project);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /**
@@ -115,6 +115,8 @@ class ProjectController extends BaseController
     /**
      * Upload file for a specific project and store to storage.
      *
+     * @param UploadProjectFileRequest $request
+     * @param Project $project
      * @return JsonResponse
      */
     public function upload(UploadProjectFileRequest $request, Project $project): JsonResponse
@@ -131,6 +133,8 @@ class ProjectController extends BaseController
     /**
      * Delete file for a specific project by given UUID.
      *
+     * @param Request $request
+     * @param Project $project
      * @return JsonResponse
      */
     public function deleteFile(Request $request, Project $project): JsonResponse
@@ -149,7 +153,7 @@ class ProjectController extends BaseController
     /**
      * @param Request $request
      * @param Project $project
-     * @return 
+     * @return JsonResponse
      */
     public function setCover(Request $request, Project $project): JsonResponse
     {
@@ -159,7 +163,7 @@ class ProjectController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param ChangeProjectCategoryRequest $request
      * @param Project $project
      * @return JsonResponse
      */
@@ -175,7 +179,6 @@ class ProjectController extends BaseController
     }
 
     /**
-     * @param Request $request
      * @param Project $project
      * @return JsonResponse
      */
