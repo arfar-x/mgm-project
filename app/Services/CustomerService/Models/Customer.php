@@ -2,8 +2,10 @@
 
 namespace App\Services\CustomerService\Models;
 
+use App\Services\MediaService\Models\Media;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -34,4 +36,12 @@ class Customer extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * @return MorphOne
+     */
+    public function mediable(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'mediable');
+    }
 }

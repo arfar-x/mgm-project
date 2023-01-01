@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller as BaseController;
 use App\Services\CustomerService\Models\Customer;
 use App\Services\CustomerService\Repositories\CustomerRepositoryInterface;
 use App\Services\CustomerService\Requests\CreateCustomerRequest;
+use App\Services\CustomerService\Requests\SetCoverRequest;
 use App\Services\CustomerService\Requests\UpdateCustomerRequest;
 use App\Services\CustomerService\Requests\UploadFileRequest;
 use App\Services\CustomerService\Resources\CustomerCollection;
 use App\Services\CustomerService\Resources\CustomerResource;
+use App\Services\MediaService\Repositories\MediaRepositoryInterface;
 use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ResponseService\Facades\Response;
 use Illuminate\Http\JsonResponse;
@@ -20,8 +22,12 @@ class CustomerController extends BaseController
 {
     /**
      * @param CustomerRepositoryInterface $customerService
+     * @param MediaRepositoryInterface $mediaService
      */
-    public function __construct(protected CustomerRepositoryInterface $customerService)
+    public function __construct(
+        protected CustomerRepositoryInterface $customerService,
+        protected MediaRepositoryInterface $mediaService
+    )
     {
         //
     }
@@ -123,7 +129,7 @@ class CustomerController extends BaseController
      */
     public function deleteFile(Request $request, Customer $customer): JsonResponse
     {
-        $result = $this->mediaService->deleteFile($request->uuid, $customer);
+        $result = $this->mediaService->deleteFile($request->input('uuid'), $customer);
 
         if ($result) {
 
@@ -140,13 +146,13 @@ class CustomerController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param SetCoverRequest $request
      * @param Customer $customer
      * @return JsonResponse
      */
-    public function setAvatar(Request $request, Customer $customer): JsonResponse
+    public function setAvatar(SetCoverRequest $request, Customer $customer): JsonResponse
     {
-        $result = $this->customerService->setAvatar($customer, $request->uuid);
+        $result = $this->customerService->setAvatar($customer, $request->input('uuid'));
 
         return Response::success(new CustomerResource($result));
     }
