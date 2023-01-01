@@ -26,7 +26,8 @@ class MediaController extends BaseController
     /**
      * Upload the file and store to storage.
      *
-     * @return void
+     * @param UploadFileRequest $request
+     * @return JsonResponse
      */
     public function upload(UploadFileRequest $request): JsonResponse
     {
@@ -38,7 +39,8 @@ class MediaController extends BaseController
     /**
      * Prepare the response for downloading the file.
      *
-     * @return void
+     * @param ShowMediaByUuidRequest $request
+     * @return BinaryFileResponse|JsonResponse
      */
     public function download(ShowMediaByUuidRequest $request): BinaryFileResponse|JsonResponse
     {
@@ -54,6 +56,7 @@ class MediaController extends BaseController
     /**
      * Delete file by given UUID.
      *
+     * @param Request $request
      * @return JsonResponse
      */
     public function deleteFile(Request $request): JsonResponse
