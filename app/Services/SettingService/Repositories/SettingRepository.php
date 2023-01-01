@@ -4,8 +4,8 @@ namespace App\Services\SettingService\Repositories;
 
 use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\SettingService\Models\Setting;
-use App\Services\SettingService\Repositories\SettingRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface
@@ -21,7 +21,8 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     /**
      * Get settings by their type.
      *
-     * @return void
+     * @param string|array|null $types
+     * @return EloquentCollection
      */
     public function getPermanent(string|array $types = null): EloquentCollection
     {
@@ -37,7 +38,8 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     /**
      * Get settings' slugs by their type.
      *
-     * @return void
+     * @param string|array|null $types
+     * @return Collection
      */
     public function getShortList(string|array $types = null): Collection
     {
@@ -54,9 +56,9 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      * Get a setting record by slug.
      *
      * @param string $slug
-     * @return Setting|null
+     * @return Setting|Model|null
      */
-    public function getBySlug(string $slug): Setting|null
+    public function getBySlug(string $slug): Setting|Model|null
     {
         return $this->findBy('slug', $slug);
     }
@@ -65,7 +67,7 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      * Get value by given slug.
      *
      * @param string $slug
-     * @return string
+     * @return string|null
      */
     public function getValueBySlug(string $slug): string|null
     {

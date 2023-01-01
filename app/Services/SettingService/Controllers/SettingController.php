@@ -37,7 +37,7 @@ class SettingController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param CreateSettingRequest $request
      * @return JsonResponse
      */
     public function store(CreateSettingRequest $request): JsonResponse
@@ -59,7 +59,7 @@ class SettingController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param UpdateSettingRequest $request
      * @param Setting $setting
      * @return JsonResponse
      */
@@ -79,10 +79,10 @@ class SettingController extends BaseController
         $result = $this->settingService->destroy($setting);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /**
@@ -117,7 +117,7 @@ class SettingController extends BaseController
      * Get settings by their type.
      *
      * @param Request $request
-     * @return void
+     * @return JsonResponse
      */
     public function getPermanent(Request $request): JsonResponse
     {
@@ -125,12 +125,12 @@ class SettingController extends BaseController
 
         return Response::retrieved(new SettingCollection($permanentSettings));
     }
-    
+
     /**
      * Get short list of settings.
      *
      * @param Request $request
-     * @return void
+     * @return JsonResponse
      */
     public function getShortList(Request $request): JsonResponse
     {
@@ -145,6 +145,7 @@ class SettingController extends BaseController
     /**
      * Get an entire record by slug.
      *
+     * @param Request $request
      * @return JsonResponse
      */
     public function getBySlug(Request $request): JsonResponse
