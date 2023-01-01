@@ -10,6 +10,7 @@ use App\Services\ProductService\Models\Category;
 use App\Services\ProductService\Repositories\CategoryRepositoryInterface;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService\Requests\CreateCategoryRequest;
+use App\Services\ProductService\Requests\SetCoverRequest;
 use App\Services\ProductService\Requests\UpdateCategoryRequest;
 use App\Services\ProductService\Resources\CategoryCollection;
 use App\Services\ProductService\Resources\CategoryResource;
@@ -45,6 +46,7 @@ class CategoryController extends BaseController
         $parameters = Arr::except($request->validated(), 'files');
         $files = $request->validated()['files'] ?? [];
 
+        /** @var Category $category */
         $category = $this->categoryRepository->create($parameters);
 
         $files = $this->mediaService->upload($files, model: $category);
@@ -157,13 +159,13 @@ class CategoryController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param SetCoverRequest $request
      * @param Category $category
      * @return JsonResponse
      */
-    public function setCover(Request $request, Category $category): JsonResponse
+    public function setCover(SetCoverRequest $request, Category $category): JsonResponse
     {
-        $result = $this->categoryRepository->setCoverUuid($category, $request->uuid);
+        $result = $this->categoryRepository->setCoverUuid($category, $request->input('uuid'));
 
         return Response::success(new CategoryResource($result));
     }

@@ -20,7 +20,7 @@ Route::middleware('api')->prefix('api')->group(function () {
             Route::patch('/{category}/deactivate', [CategoryController::class, 'deactivate'])->name('deactivate');
             Route::post('/{category}/upload', [CategoryController::class, 'upload'])->name('upload');
             Route::delete('/{category}/{uuid}', [CategoryController::class, 'deleteFile'])->name('delete-file');
-            Route::patch('/{category}/{uuid}', [CategoryController::class, 'setCover'])->name('set-cover');
+            Route::patch('/{category}/set-cover', [CategoryController::class, 'setCover'])->name('set-cover');
         });
 
         Route::get('/', [ProductController::class, 'index'])->name('index');
@@ -36,7 +36,7 @@ Route::middleware('api')->prefix('api')->group(function () {
         Route::get('/{product}/tags', [ProductController::class, 'getTags'])->name('get-tags');
         Route::patch('/{product}/tags/sync', [ProductController::class, 'syncTags'])->name('sync-tags');
         Route::delete('/{product}/{uuid}', [ProductController::class, 'deleteFile'])->name('delete-file');
-        Route::patch('/{product}/{uuid}', [ProductController::class, 'setCover'])->name('set-cover');
+        Route::patch('/{product}/set-cover', [ProductController::class, 'setCover'])->name('set-cover');
 
     });
 

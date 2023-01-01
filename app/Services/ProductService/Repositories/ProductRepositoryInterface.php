@@ -13,10 +13,10 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
     /**
      * @param Product $product
-     * @param string $uuid
+     * @param string|null $uuid
      * @return Product|Model
      */
-    public function setCoverUuid(Product $product, string $uuid): Product|Model;
+    public function setCoverUuid(Product $product, string $uuid = null): Product|Model;
 
     /**
      * Get products by given category model.
