@@ -11,7 +11,7 @@ Route::middleware('api')->prefix('api')->group(function () {
             ->post('upload', [MediaController::class, 'upload'])->name('upload');
 
         Route::delete('{uuid}', [MediaController::class, 'deleteFile'])->name('delete-file');
-        Route::get('{type}/{uuid}', [MediaController::class, 'download'])->name('download');
+        Route::patch('{directory}', [MediaController::class, 'download'])->name('download');
 
     });
 });

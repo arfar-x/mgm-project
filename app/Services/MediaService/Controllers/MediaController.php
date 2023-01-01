@@ -4,6 +4,7 @@ namespace App\Services\MediaService\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\Services\MediaService\Repositories\MediaRepositoryInterface;
+use App\Services\MediaService\Requests\ShowMediaByUuidRequest;
 use App\Services\MediaService\Requests\UploadFileRequest;
 use App\Services\MediaService\Resources\MediaCollection;
 use App\Services\ResponseService\Facades\Response;
@@ -39,9 +40,9 @@ class MediaController extends BaseController
      *
      * @return void
      */
-    public function download(Request $request): BinaryFileResponse|JsonResponse
+    public function download(ShowMediaByUuidRequest $request): BinaryFileResponse|JsonResponse
     {
-        $filePath = $this->mediaService->getFilePath($request->type, $request->uuid);
+        $filePath = $this->mediaService->getFilePath($request->directory, $request->uuid);
 
         if ($filePath) {
             return response()->download($filePath);
