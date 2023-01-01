@@ -9,6 +9,7 @@ use App\Services\ProjectService\Models\Project;
 use App\Services\ProjectService\Repositories\ProjectRepositoryInterface;
 use App\Services\ProjectService\Requests\ChangeProjectCategoryRequest;
 use App\Services\ProjectService\Requests\CreateProjectRequest;
+use App\Services\ProjectService\Requests\SetCoverRequest;
 use App\Services\ProjectService\Requests\UpdateProjectRequest;
 use App\Services\ProjectService\Requests\UploadProjectFileRequest;
 use App\Services\ProjectService\Resources\ProjectCollection;
@@ -46,6 +47,7 @@ class ProjectController extends BaseController
         $parameters = Arr::except($request->validated(), 'files');
         $files = $request->validated()['files'] ?? [];
 
+        /** @var Project $project */
         $project = $this->projectService->create($parameters);
 
         $files = $this->mediaService->upload($files, model: $project);
@@ -139,9 +141,12 @@ class ProjectController extends BaseController
      */
     public function deleteFile(Request $request, Project $project): JsonResponse
     {
-        $result = $this->mediaService->deleteFile($request->uuid, $project);
+        $result = $this->mediaService->deleteFile($request->uuid ?? $request->input('uuid'), $project);
 
         if ($result) {
+            // Set cover to null
+            $this->projectService->setCoverUuid($project);
+
             return Response::deleted(['result' => $result]);
         } elseif (is_null($result)) {
             return Response::notFound();
@@ -151,13 +156,13 @@ class ProjectController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param SetCoverRequest $request
      * @param Project $project
      * @return JsonResponse
      */
-    public function setCover(Request $request, Project $project): JsonResponse
+    public function setCover(SetCoverRequest $request, Project $project): JsonResponse
     {
-        $result = $this->projectService->setCoverUuid($project, $request->uuid);
+        $result = $this->projectService->setCoverUuid($project, $request->input('uuid'));
 
         return Response::success(new ProjectResource($result));
     }
@@ -196,7 +201,7 @@ class ProjectController extends BaseController
      */
     public function syncTags(Request $request, Project $project): JsonResponse
     {
-        $result = $this->tagService->syncTags($request->ids, $project);
+        $result = $this->tagService->syncTags($request->input('ids'), $project);
 
         if ($result) {
             return Response::success($result);

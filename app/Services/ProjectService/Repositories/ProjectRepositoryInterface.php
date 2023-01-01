@@ -13,10 +13,10 @@ interface ProjectRepositoryInterface extends BaseRepositoryInterface
 {
     /**
      * @param Project $project
-     * @param string $uuid
+     * @param string|null $uuid
      * @return Project|Model
      */
-    public function setCoverUuid(Project $project, string $uuid): Project|Model;
+    public function setCoverUuid(Project $project, string $uuid = null): Project|Model;
 
     /**
      * Get projects by given category model.

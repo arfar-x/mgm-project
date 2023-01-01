@@ -2,7 +2,7 @@
 
 namespace App\Services\ProjectService\Resources;
 
-use App\Services\MediaService\Resources\MediaCollection;
+use App\Services\MediaService\Resources\MediaResource;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class CategoryResource extends JsonResource
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'media' => new MediaCollection($this->mediable)
+            'media' => new MediaResource($this->mediable)
         ];
     }
 }
