@@ -4,6 +4,7 @@ namespace App\Services\ProjectService\Repositories;
 
 use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\ProjectService\Models\Category;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -20,9 +21,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      *
      * @param Category $category
      * @param string|null $uuid
-     * @return Category
+     * @return Category|Model
      */
-    public function setCoverUuid(Category $category, string $uuid = null): Category
+    public function setCoverUuid(Category $category, string $uuid = null): Category|Model
     {
         return $this->update($category, [
             'cover' => $uuid

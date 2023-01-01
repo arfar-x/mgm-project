@@ -3,9 +3,9 @@
 namespace App\Services\ProjectService\Repositories;
 
 use App\Services\BaseService\Repositories\BaseRepository;
-use App\Services\ProjectService\Repositories\ProjectRepositoryInterface;
 use App\Services\ProjectService\Models\Category;
 use App\Services\ProjectService\Models\Project;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -26,9 +26,9 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
      *
      * @param Project $project
      * @param string $uuid
-     * @return Project
+     * @return Project|Model
      */
-    public function setCoverUuid(Project $project, string $uuid): Project
+    public function setCoverUuid(Project $project, string $uuid): Project|Model
     {
         return $this->update($project, [
             'cover' => $uuid
@@ -39,7 +39,8 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
      * Get projects by given category model.
      *
      * @param Category $category
-     * @return Collection
+     * @param array $queries
+     * @return LengthAwarePaginator|Collection
      */
     public function getProjectsByCategory(Category $category, array $queries = []): LengthAwarePaginator|Collection
     {
@@ -62,9 +63,9 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
      *
      * @param Project $project
      * @param array $parameters
-     * @return Project|boolean
+     * @return Project|bool|Model
      */
-    public function changeCategory(Project $project, array $parameters): Project|bool
+    public function changeCategory(Project $project, array $parameters): Project|bool|Model
     {
         try {
 
