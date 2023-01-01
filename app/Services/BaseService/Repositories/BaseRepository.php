@@ -105,7 +105,7 @@ class BaseRepository implements BaseRepositoryInterface
      *
      * @param string $key
      * @param string|array|null $values
-     * @return Model
+     * @return Builder|null
      */
     public function findIn(string $key, string|array $values = null): Builder|null
     {

@@ -20,7 +20,7 @@ class BaseServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(SettingServiceProvider::class);
         $this->app->register(ResponseServiceProvider::class);
@@ -38,7 +38,7 @@ class BaseServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
