@@ -11,7 +11,7 @@ interface TagRepositoryInterface extends BaseRepositoryInterface
     /**
      * Set tags for a related model.
      *
-     * @param array $tags
+     * @param array $parameters
      * @param Model|null $model
      * @return array
      */

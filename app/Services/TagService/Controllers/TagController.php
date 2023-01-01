@@ -27,11 +27,11 @@ class TagController extends BaseController
 
     /**
      * Store a new contact record.
-     * 
+     *
      * @param CreateTagRequest $request
      * @return JsonResponse
      */
-    public function store(CreateTagRequest $request)
+    public function store(CreateTagRequest $request): JsonResponse
     {
         $result = $this->tagService->create($request->validated());
 
@@ -59,10 +59,10 @@ class TagController extends BaseController
         $result = $this->tagService->destroy($tag);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /**
