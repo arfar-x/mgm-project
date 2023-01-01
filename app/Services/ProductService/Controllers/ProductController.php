@@ -50,7 +50,7 @@ class ProductController extends BaseController
         $files = $request->validated()['files'] ?? [];
 
         $product = $this->productService->create($parameters);
-        
+
         $files = $this->mediaService->upload($files, model: $product);
 
         if ($files->isNotEmpty()) {
@@ -91,10 +91,10 @@ class ProductController extends BaseController
         $result = $this->productService->destroy($product);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /**
@@ -126,6 +126,8 @@ class ProductController extends BaseController
     /**
      * Upload file for a specific product and store to storage.
      *
+     * @param UploadProductFileRequest $request
+     * @param Product $product
      * @return JsonResponse
      */
     public function upload(UploadProductFileRequest $request, Product $product): JsonResponse
@@ -142,6 +144,8 @@ class ProductController extends BaseController
     /**
      * Delete file for a specific product by given UUID.
      *
+     * @param Request $request
+     * @param Product $product
      * @return JsonResponse
      */
     public function deleteFile(Request $request, Product $product): JsonResponse
@@ -160,7 +164,7 @@ class ProductController extends BaseController
     /**
      * @param Request $request
      * @param Product $product
-     * @return 
+     * @return JsonResponse
      */
     public function setCover(Request $request, Product $product): JsonResponse
     {
@@ -170,7 +174,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param ChangeProductCategoryRequest $request
      * @param Product $product
      * @return JsonResponse
      */
@@ -210,7 +214,6 @@ class ProductController extends BaseController
     }
 
     /**
-     * @param Request $request
      * @param Product $product
      * @return JsonResponse
      */
