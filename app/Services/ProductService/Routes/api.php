@@ -20,7 +20,7 @@ Route::middleware('api')->prefix('api')->group(function () {
             Route::patch('/{category}/deactivate', [CategoryController::class, 'deactivate'])->name('deactivate');
             Route::post('/{category}/upload', [CategoryController::class, 'upload'])->name('upload');
             Route::delete('/{category}/{uuid}', [CategoryController::class, 'deleteFile'])->name('delete-file');
-            Route::patch('/{category}/{uuid}', [CategoryController::class, 'setCover'])->name('set-cover');
+            Route::patch('/{category}/set-cover', [CategoryController::class, 'setCover'])->name('set-cover');
         });
 
         Route::get('/', [ProductController::class, 'index'])->name('index');
