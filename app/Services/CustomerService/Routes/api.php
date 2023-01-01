@@ -8,6 +8,7 @@ Route::middleware('api')->prefix('api')->group(function () {
     Route::middleware('auth:sanctum')->prefix('admin/customers')->name('admin.customers.')->group(function () {
 
         Route::get('/', [CustomerController::class, 'index'])->name('index');
+        Route::post('/', [CustomerController::class, 'store'])->name('store');
         Route::get('/{customer}', [CustomerController::class, 'show'])->name('show');
         Route::patch('/{customer}', [CustomerController::class, 'update'])->name('update');
         Route::delete('/{customer}', [CustomerController::class, 'delete'])->name('delete');
