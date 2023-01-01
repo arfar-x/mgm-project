@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+							"raw": "{\n    \"mobile\": \"09111111111\",\n    \"password\": \"admin\",\n    \"status\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,7 +55,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"username\": \"jdoe\",\n    \"phone_number\": \"09112223344\",\n    \"email\": \"johndoe@domain.com\",\n    \"password\": \"1234\",\n    \"password_confirmation\": \"1234\"\n}",
+							"raw": "{\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"mobile\": \"09222222222\",\n    \"email\": \"johndoe@domain.com\",\n    \"password\": \"1234\",\n    \"password_confirmation\": \"1234\",\n    \"status\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -139,7 +139,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"sys\",\n    \"last_name\": \"admin\",\n    \"phone_number\": \"09112223346\",\n    \"email\": \"b@domain.org\"\n}",
+							"raw": "{\n    \"first_name\": \"sys\",\n    \"last_name\": \"admin\",\n    \"mobile\": \"09112223346\",\n    \"email\": \"b@domain.org\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,6 +364,421 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/customers?per_page=2&sort_by=created_at&sort_direction=desc",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers"
+									],
+									"query": [
+										{
+											"key": "paginate",
+											"value": "0",
+											"description": "If enabled per_page would be ignored.",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										},
+										{
+											"key": "sort_by",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"MGM Company\",\n    \"url\": \"http://idk.com\",\n    \"avatar\": \"5b5deeee-7faf-11ed-b687-0008ca2839c0\",\n    \"is_featured\": 1,\n    \"status\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/customers",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"MGM Hydraulic Company\",\n    \"url\": \"http://idk.com/idk-page\",\n    \"avatar\": \"5b5deeee-7faf-11ed-b687-0008ca2839c0\",\n    \"is_featured\": 1,\n    \"status\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Activate",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1/activate",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1",
+										"activate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deactivate",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1/deactivate",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1",
+										"deactivate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload file",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files[]",
+											"type": "file",
+											"src": "/home/alireza/Pictures/index.jpeg"
+										},
+										{
+											"key": "files[]",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "just a title",
+											"type": "default"
+										},
+										{
+											"key": "type",
+											"value": "customer-image",
+											"type": "default"
+										},
+										{
+											"key": "meta",
+											"value": "customers",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1/upload",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete file",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1/e594ea30-89dd-11ed-b647-5404a63a9ab5",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1",
+										"e594ea30-89dd-11ed-b647-5404a63a9ab5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set cover",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"uuid\": \"e594ea30-89dd-11ed-b647-5404a63a9ab5\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/customers/1/set-cover",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"customers",
+										"1",
+										"set-cover"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Panel",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/customers?per_page=2&sort_by=created_at&sort_direction=desc",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"customers"
+									],
+									"query": [
+										{
+											"key": "paginate",
+											"value": "0",
+											"description": "If enabled per_page would be ignored.",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										},
+										{
+											"key": "sort_by",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/customers/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -890,17 +1305,7 @@
 												{
 													"key": "files[]",
 													"type": "file",
-													"src": "/home/alireza/Pictures/Screenshots/1.png"
-												},
-												{
-													"key": "files[]",
-													"type": "file",
-													"src": "/home/alireza/Pictures/Screenshots/Screenshot from 2022-12-14 18-32-21.png"
-												},
-												{
-													"key": "files[]",
-													"type": "file",
-													"src": "/home/alireza/Pictures/Screenshots/Screenshot from 2022-12-17 14-14-50.png"
+													"src": "/home/alireza/Pictures/index.jpeg"
 												},
 												{
 													"key": "status",
@@ -973,14 +1378,14 @@
 											}
 										},
 										"url": {
-											"raw": "{{api_url}}/admin/products/2",
+											"raw": "{{api_url}}/admin/products/1",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
 												"products",
-												"2"
+												"1"
 											]
 										}
 									},
@@ -1080,7 +1485,7 @@
 												{
 													"key": "files[]",
 													"type": "file",
-													"src": "/home/alireza/Pictures/Screenshots/1.png"
+													"src": "/home/alireza/Pictures/index.jpeg"
 												},
 												{
 													"key": "files[]",
@@ -1106,14 +1511,14 @@
 											]
 										},
 										"url": {
-											"raw": "{{api_url}}/admin/products/46/upload",
+											"raw": "{{api_url}}/admin/products/1/upload",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
 												"products",
-												"46",
+												"1",
 												"upload"
 											]
 										}
@@ -1132,15 +1537,15 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/products/46/88b237a4-7ed0-11ed-b076-0008ca2839c0",
+											"raw": "{{api_url}}/admin/products/1/9c7212b8-89e4-11ed-87a5-5404a63a9ab5",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
 												"products",
-												"46",
-												"88b237a4-7ed0-11ed-b076-0008ca2839c0"
+												"1",
+												"9c7212b8-89e4-11ed-87a5-5404a63a9ab5"
 											]
 										}
 									},
@@ -1157,16 +1562,25 @@
 												"type": "default"
 											}
 										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"uuid\": \"df2c3dd6-89e4-11ed-868e-5404a63a9ab5\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
-											"raw": "{{api_url}}/admin/products/46/88b237a4-7ed0-11ed-b076-0008ca2839c0",
+											"raw": "{{api_url}}/admin/products/2/set-cover",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
 												"products",
-												"46",
-												"88b237a4-7ed0-11ed-b076-0008ca2839c0"
+												"2",
+												"set-cover"
 											]
 										}
 									},
@@ -1202,6 +1616,68 @@
 												"products",
 												"1",
 												"change-category"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get tags",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/products/1/tags",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"products",
+												"1",
+												"tags"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sync tags",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"ids\": [\n        1, 2, 3\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/products/1/tags/sync",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"products",
+												"1",
+												"tags",
+												"sync"
 											]
 										}
 									},
@@ -1295,14 +1771,14 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products?per_page=2&sort_by=created_at",
+											"raw": "{{api_url}}/admin/products/categories?per_page=2&sort_by=created_at",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
-												"products"
+												"products",
+												"categories"
 											],
 											"query": [
 												{
@@ -1345,14 +1821,14 @@
 											}
 										},
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products",
+											"raw": "{{api_url}}/admin/products/categories",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
-												"products"
+												"products",
+												"categories"
 											]
 										}
 									},
@@ -1395,7 +1871,7 @@
 												{
 													"key": "files[]",
 													"type": "file",
-													"src": "/home/alireza/Pictures/Screenshots/1.png"
+													"src": "/home/alireza/Pictures/index.jpeg"
 												}
 											],
 											"options": {
@@ -1405,14 +1881,14 @@
 											}
 										},
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products",
+											"raw": "{{api_url}}/admin/products/categories",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
-												"products"
+												"products",
+												"categories"
 											]
 										}
 									},
@@ -1430,15 +1906,15 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1",
+											"raw": "{{api_url}}/admin/products/categories/2",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
-												"1"
+												"categories",
+												"2"
 											]
 										}
 									},
@@ -1457,7 +1933,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"title\": \"پک خاص\",\n    \"slug\": \"special-pack\",\n    \"position\": 1,\n    \"cover\": \"none\"\n}",
+											"raw": "{\n    \"title\": \"پک خاص ادیت شده\",\n    \"slug\": \"special-pack\",\n    \"position\": 1,\n    \"cover\": \"none\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1465,14 +1941,14 @@
 											}
 										},
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1",
+											"raw": "{{api_url}}/admin/products/categories/1",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1"
 											]
 										}
@@ -1491,14 +1967,14 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1",
+											"raw": "{{api_url}}/admin/products/categories/1",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1"
 											]
 										}
@@ -1517,14 +1993,14 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1/activate",
+											"raw": "{{api_url}}/admin/products/categories/1/activate",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1",
 												"activate"
 											]
@@ -1544,14 +2020,14 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1/deactivate",
+											"raw": "{{api_url}}/admin/products/categories/1/deactivate",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1",
 												"deactivate"
 											]
@@ -1576,13 +2052,7 @@
 												{
 													"key": "files[]",
 													"type": "file",
-													"src": "/home/alireza/Pictures/Screenshots/1.png"
-												},
-												{
-													"key": "files[]",
-													"type": "file",
-													"src": [],
-													"disabled": true
+													"src": "/home/alireza/Pictures/index.jpeg"
 												},
 												{
 													"key": "title",
@@ -1602,14 +2072,14 @@
 											]
 										},
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1/upload",
+											"raw": "{{api_url}}/admin/products/categories/1/upload",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1",
 												"upload"
 											]
@@ -1629,14 +2099,14 @@
 											}
 										],
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1/d33847ca-7eec-11ed-a5b3-0008ca2839c0",
+											"raw": "{{api_url}}/admin/products/categories/1/d33847ca-7eec-11ed-a5b3-0008ca2839c0",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1",
 												"d33847ca-7eec-11ed-a5b3-0008ca2839c0"
 											]
@@ -1655,17 +2125,26 @@
 												"type": "default"
 											}
 										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"uuid\": \"98ff9740-89e9-11ed-af63-5404a63a9ab5\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
-											"raw": "{{api_url}}/admin/categories/products/1/b69dd27c-7ee9-11ed-b588-0008ca2839c0",
+											"raw": "{{api_url}}/admin/products/categories/1/set-cover",
 											"host": [
 												"{{api_url}}"
 											],
 											"path": [
 												"admin",
-												"categories",
 												"products",
+												"categories",
 												"1",
-												"b69dd27c-7ee9-11ed-b588-0008ca2839c0"
+												"set-cover"
 											]
 										}
 									},
@@ -1797,6 +2276,1109 @@
 			]
 		},
 		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Project",
+					"item": [
+						{
+							"name": "Admin",
+							"item": [
+								{
+									"name": "List",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects?per_page=2&sort_by=created_at&sort_direction=desc",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects"
+											],
+											"query": [
+												{
+													"key": "paginate",
+													"value": "0",
+													"description": "If enabled per_page would be ignored.",
+													"disabled": true
+												},
+												{
+													"key": "per_page",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "created_at"
+												},
+												{
+													"key": "sort_direction",
+													"value": "desc"
+												},
+												{
+													"key": "active",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"category_id\": 1,\n    \"title\": \"جک هیلدرولیکی MGM\",\n    \"slug\": \"mgm-hydraulic-jack\",\n    \"body\": \"لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.\",\n    \"status\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create with files",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "title",
+													"value": "آدرس شرکت",
+													"type": "text"
+												},
+												{
+													"key": "slug",
+													"value": "address",
+													"type": "text"
+												},
+												{
+													"key": "body",
+													"value": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
+													"type": "text"
+												},
+												{
+													"key": "status",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/alireza/Pictures/index.jpeg"
+												}
+											],
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"category_id\": 1,\n    \"title\": \"جک هیلدرولیکی MGM\",\n    \"slug\": \"mgm-hydraulic-jack\",\n    \"body\": \"لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت...\",\n    \"status\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/3",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"3"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Activate",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/activate",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"activate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deactivate",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/deactivate",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"deactivate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Upload file",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/alireza/Pictures/index.jpeg"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": [],
+													"disabled": true
+												},
+												{
+													"key": "title",
+													"value": "just a title",
+													"type": "default"
+												},
+												{
+													"key": "type",
+													"value": "project-image",
+													"type": "default"
+												},
+												{
+													"key": "meta",
+													"value": "p",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/upload",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete file",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/1687380e-89ee-11ed-9723-5404a63a9ab5",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"1687380e-89ee-11ed-9723-5404a63a9ab5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Set cover",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"uuid\": \"654a2f32-89ee-11ed-9d0c-5404a63a9ab5\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/set-cover",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"set-cover"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Change category",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"category_id\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/change-category",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"change-category"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get tags",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/tags",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"tags"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sync tags",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"ids\": [\n        1, 2, 3\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1/tags/sync",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1",
+												"tags",
+												"sync"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Panel",
+							"item": [
+								{
+									"name": "List",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/panel/projects",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"panel",
+												"projects"
+											],
+											"query": [
+												{
+													"key": "paginate",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "per_page",
+													"value": "10",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Admin",
+							"item": [
+								{
+									"name": "List",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories?per_page=2&sort_by=created_at",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories"
+											],
+											"query": [
+												{
+													"key": "paginate",
+													"value": "0",
+													"description": "If enabled per_page would be ignored.",
+													"disabled": true
+												},
+												{
+													"key": "per_page",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "created_at"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"پک خاص\",\n    \"slug\": \"special-pack\",\n    \"position\": 1,\n    \"status\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create with files",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "title",
+													"value": "پک خاص",
+													"type": "text"
+												},
+												{
+													"key": "slug",
+													"value": "special-pack",
+													"type": "text"
+												},
+												{
+													"key": "position",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "status",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/alireza/Pictures/index.jpeg"
+												}
+											],
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"پک خاص\",\n    \"slug\": \"special-pack\",\n    \"position\": 1,\n    \"cover\": \"none\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Activate",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1/activate",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1",
+												"activate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deactivate",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1/deactivate",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1",
+												"deactivate"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Upload file",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/alireza/Pictures/index.jpeg"
+												},
+												{
+													"key": "title",
+													"value": "just a title",
+													"type": "default"
+												},
+												{
+													"key": "type",
+													"value": "projects-image",
+													"type": "default"
+												},
+												{
+													"key": "meta",
+													"value": "p",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1/upload",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete file",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1/10251ed4-89f0-11ed-848b-5404a63a9ab5",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1",
+												"10251ed4-89f0-11ed-848b-5404a63a9ab5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Set cover",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"uuid\": \"d58bb972-89ef-11ed-8404-5404a63a9ab5\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{api_url}}/admin/projects/categories/1/set-cover",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"admin",
+												"projects",
+												"categories",
+												"1",
+												"set-cover"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Panel",
+							"item": [
+								{
+									"name": "List",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/panel/projects/categories",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"panel",
+												"projects",
+												"categories"
+											],
+											"query": [
+												{
+													"key": "paginate",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "per_page",
+													"value": "10",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/panel/projects/categories/1",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"panel",
+												"projects",
+												"categories",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get projects",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{api_url}}/panel/projects/categories/1/get-projects?per_page=2&sort_by=created_at&sort_direction=desc",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"panel",
+												"projects",
+												"categories",
+												"1",
+												"get-projects"
+											],
+											"query": [
+												{
+													"key": "paginate",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "per_page",
+													"value": "2"
+												},
+												{
+													"key": "sort_by",
+													"value": "created_at"
+												},
+												{
+													"key": "sort_direction",
+													"value": "desc"
+												},
+												{
+													"key": "active",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Media",
 			"item": [
 				{
@@ -1816,12 +3398,7 @@
 								{
 									"key": "files[]",
 									"type": "file",
-									"src": "/home/alireza/Pictures/Screenshots/Screenshot from 2022-12-14 18-32-21.png"
-								},
-								{
-									"key": "files[]",
-									"type": "file",
-									"src": "/home/alireza/Pictures/Screenshots/1.png"
+									"src": "/home/alireza/Pictures/index.jpeg"
 								},
 								{
 									"key": "title",
@@ -1867,13 +3444,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/media/8569ab90-7e30-11ed-9c71-5404a63a9ab5",
+							"raw": "{{api_url}}/media/2b24adc8-89e4-11ed-b2ee-5404a63a9ab5",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"media",
-								"8569ab90-7e30-11ed-9c71-5404a63a9ab5"
+								"2b24adc8-89e4-11ed-b2ee-5404a63a9ab5"
 							]
 						}
 					},
@@ -1887,7 +3464,7 @@
 						}
 					},
 					"request": {
-						"method": "GET",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Accept",
@@ -1895,19 +3472,342 @@
 								"type": "default"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"2b24adc8-89e4-11ed-b2ee-5404a63a9ab5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{api_url}}/media/product/8566fc38-7e30-11ed-89e4-5404a63a9ab5",
+							"raw": "{{api_url}}/media/customer",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"media",
-								"product",
-								"8566fc38-7e30-11ed-89e4-5404a63a9ab5"
+								"customer"
 							]
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tag",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "List",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/tags?per_page=2&sort_by=created_at&sort_direction=desc",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags"
+									],
+									"query": [
+										{
+											"key": "paginate",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										},
+										{
+											"key": "sort_by",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										},
+										{
+											"key": "active",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"ویژه\",\n    \"slug\": \"special\",\n    \"status\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/tags",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/tags/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"تخفیف دار\",\n    \"slug\": \"discounted\",\n    \"status\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/tags/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Activate",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/tags/1/activate",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags",
+										"1",
+										"activate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deactivate",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/tags/1/deactivate",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags",
+										"1",
+										"deactivate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/admin/tags/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"tags",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Panel",
+					"item": [
+						{
+							"name": "List",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/tags?per_page=2&sort_by=created_at&sort_direction=desc",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"tags"
+									],
+									"query": [
+										{
+											"key": "paginate",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										},
+										{
+											"key": "sort_by",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_direction",
+											"value": "desc"
+										},
+										{
+											"key": "active",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/panel/tags/1",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"panel",
+										"tags",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
@@ -1950,7 +3850,7 @@
 		},
 		{
 			"key": "token",
-			"value": "1|Zzz7bwR9ZJG821UKAvQv62q7w7Cj3pZQHLxLQMhz",
+			"value": "1|aEC4mO2YOmk9z0vVYJwGyFQdc7dMkM4H9jQLiB37",
 			"type": "default"
 		}
 	]
