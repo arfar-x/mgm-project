@@ -11,17 +11,19 @@ Interface MediaRepositoryInterface extends BaseRepositoryInterface
     /**
      * Create a record into database for every single uploaded file
      * and move them to a proper directory.
-     * 
+     *
+     * @param array $files
      * @param array $parameters
-     * @return Model
+     * @param Model|null $model
+     * @return Collection
      */
     public function upload(array $files, array $parameters = [], Model $model = null): Collection;
 
     /**
      * Delete a linked file with the relation and delete from storage.
      *
-     * @param Model $model
      * @param string $uuid
+     * @param Model|null $model
      * @return bool|null
      */
     public function deleteFile(string $uuid, Model $model = null): bool|null;
@@ -37,7 +39,7 @@ Interface MediaRepositoryInterface extends BaseRepositoryInterface
     /**
      * Get the path of a file.
      * This is useful when /public directory is not linked to /storage.
-     * 
+     *
      * @param string $type
      * @param string $uuid
      * @return string|null

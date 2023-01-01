@@ -23,9 +23,11 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
     /**
      * Create a record into database for every single uploaded file
      * and move them to a proper directory.
-     * 
+     *
+     * @param array $files
      * @param array $parameters
-     * @return Model
+     * @param Model|null $model
+     * @return Collection
      */
     public function upload(array $files, array $parameters = [], Model $model = null): Collection
     {
@@ -62,7 +64,7 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
      * Delete a linked file with the relation and delete from storage.
      *
      * @param string $uuid
-     * @param Model $model
+     * @param Model|null $model
      * @return boolean|null
      */
     public function deleteFile(string $uuid, Model $model = null): bool|null
@@ -73,7 +75,7 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
 
         if ($file) {
             File::delete("$file->path/$uuid.$file->mime");
-            
+
             if ($model instanceof Relation) {
                 return $mediaModel->detach();
             } else {
@@ -111,7 +113,7 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
     /**
      * Get the path of a file.
      * This is useful when /public directory is not linked to /storage.
-     * 
+     *
      * @param string $type
      * @param string $uuid
      * @return string|null
@@ -119,9 +121,9 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
     public function getFilePath(string $type, string $uuid): string|null
     {
         $file = $this->model->where('uuid', $uuid)->first();
-        
+
         if ($file) {
-            $fileName = "{$file->uuid}.{$file->mime}";
+            $fileName = "$file->uuid.$file->mime";
 
             return storage_path("app/public/$type") . "/$fileName";
         }
@@ -131,7 +133,8 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
 
     /**
      * Get the path in public in which media files are stores.
-     * 
+     *
+     * @param Model|Relation $model
      * @return string
      */
     private function getPublicMediaPath(Model|Relation $model): string
@@ -143,7 +146,8 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
      * The directory of model type in which media files are stored.
      * If model has $mediaDirectory inside, then it will be used,
      * If not, model name will be used instead.
-     * 
+     *
+     * @param Model|Relation $model
      * @return string
      */
     private function getModelMediaDirectory(Model|Relation $model): string

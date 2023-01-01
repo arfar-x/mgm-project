@@ -32,13 +32,6 @@ class Media extends Model
     protected $table = 'media';
 
     /**
-     * The directory within /public in which model's media files are stored.
-     *
-     * @var string
-     */
-    public $mediaDirectory = 'media';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
