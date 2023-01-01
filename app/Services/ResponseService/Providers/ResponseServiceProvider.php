@@ -12,7 +12,7 @@ class ResponseServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->bind('response', function () {
             return new Response();
@@ -24,7 +24,7 @@ class ResponseServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadTranslationsFrom(__DIR__ . '/../Lang', 'response');
     }
