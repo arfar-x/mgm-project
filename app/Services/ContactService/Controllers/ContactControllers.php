@@ -68,21 +68,21 @@ class ContactControllers extends BaseController
         $result = $this->contactService->destroy($contact);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /** Panel methods */
 
     /**
      * Store a new contact record.
-     * 
+     *
      * @param CreateContactRequest $request
      * @return JsonResponse
      */
-    public function store(CreateContactRequest $request)
+    public function store(CreateContactRequest $request): JsonResponse
     {
         $result = $this->contactService->create($request->validated());
 
