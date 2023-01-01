@@ -46,7 +46,7 @@ class CategoryController extends BaseController
         $files = $request->validated()['files'] ?? [];
 
         $category = $this->categoryRepository->create($parameters);
-        
+
         $files = $this->mediaService->upload($files, model: $category);
 
         if ($files->isNotEmpty()) {
@@ -79,10 +79,10 @@ class CategoryController extends BaseController
         $result = $this->categoryRepository->destroy($category);
 
         if ($result) {
-            return Response::deleted(['result' => $result]);
+            return Response::deleted(['result' => true]);
         }
 
-        return Response::error(['result' => $result]);
+        return Response::error(['result' => false]);
     }
 
     /**
@@ -146,9 +146,9 @@ class CategoryController extends BaseController
 
             // Set category cover to null
             $this->categoryRepository->setCoverUuid($category);
-            
+
             return Response::deleted(['result' => $result]);
-            
+
         } elseif (is_null($result)) {
             return Response::notFound();
         }
@@ -159,7 +159,7 @@ class CategoryController extends BaseController
     /**
      * @param Request $request
      * @param Category $category
-     * @return 
+     * @return JsonResponse
      */
     public function setCover(Request $request, Category $category): JsonResponse
     {

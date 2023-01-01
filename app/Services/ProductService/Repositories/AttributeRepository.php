@@ -5,7 +5,6 @@ namespace App\Services\ProductService\Repositories;
 use App\Services\BaseService\Repositories\BaseRepository;
 use App\Services\ProductService\Models\Attribute;
 use App\Services\ProductService\Models\Product;
-use Illuminate\Support\Collection;
 
 class AttributeRepository extends BaseRepository implements AttributeRepositoryInterface
 {
@@ -22,7 +21,7 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
      *
      * @param Product $product
      * @param array $attributes
-     * @return Collection
+     * @return array
      */
     public function setProductAttributes(Product $product, array $attributes): array
     {
@@ -39,7 +38,7 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
     public function updateProductAttributes(Product $product, array $attributes): array
     {
         $oldAttributes = $product->attributes()->get()->pluck('id');
-        
+
         $this->model->destroy($oldAttributes->toArray());
 
         return $product->attributes()->createMany($attributes);
