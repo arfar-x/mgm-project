@@ -36,7 +36,7 @@ Route::middleware('api')->prefix('api')->group(function () {
         Route::get('/{product}/tags', [ProductController::class, 'getTags'])->name('get-tags');
         Route::patch('/{product}/tags/sync', [ProductController::class, 'syncTags'])->name('sync-tags');
         Route::delete('/{product}/{uuid}', [ProductController::class, 'deleteFile'])->name('delete-file');
-        Route::patch('/{product}/{uuid}', [ProductController::class, 'setCover'])->name('set-cover');
+        Route::patch('/{product}/set-cover', [ProductController::class, 'setCover'])->name('set-cover');
 
     });
 

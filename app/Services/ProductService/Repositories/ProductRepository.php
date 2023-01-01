@@ -25,10 +25,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Set product's cover by given UUID.
      *
      * @param Product $product
-     * @param string $uuid
+     * @param string|null $uuid
      * @return Product|Model
      */
-    public function setCoverUuid(Product $product, string $uuid): Product|Model
+    public function setCoverUuid(Product $product, string $uuid = null): Product|Model
     {
         return $this->update($product, [
             'cover' => $uuid

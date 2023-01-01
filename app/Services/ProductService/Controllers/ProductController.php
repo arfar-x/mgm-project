@@ -10,6 +10,7 @@ use App\Services\ProductService\Repositories\AttributeRepositoryInterface;
 use App\Services\ProductService\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService\Requests\ChangeProductCategoryRequest;
 use App\Services\ProductService\Requests\CreateProductRequest;
+use App\Services\ProductService\Requests\SetCoverRequest;
 use App\Services\ProductService\Requests\UpdateProductRequest;
 use App\Services\ProductService\Requests\UploadProductFileRequest;
 use App\Services\ProductService\Resources\ProductCollection;
@@ -49,6 +50,7 @@ class ProductController extends BaseController
         $parameters = Arr::except($request->validated(), 'files');
         $files = $request->validated()['files'] ?? [];
 
+        /** @var Product $product */
         $product = $this->productService->create($parameters);
 
         $files = $this->mediaService->upload($files, model: $product);
@@ -73,6 +75,7 @@ class ProductController extends BaseController
     {
         $parameters = Arr::except($request->validated(), ['files', 'attributes']);
 
+        /** @var Product $product */
         $product = $this->productService->update($product, $parameters);
 
         if ($request->has('attributes')) {
@@ -150,9 +153,12 @@ class ProductController extends BaseController
      */
     public function deleteFile(Request $request, Product $product): JsonResponse
     {
-        $result = $this->mediaService->deleteFile($request->uuid, $product);
+        $result = $this->mediaService->deleteFile($request->uuid ?? $request->input('uuid'), $product);
 
         if ($result) {
+            // Set cover to null
+            $this->productService->setCoverUuid($product);
+
             return Response::deleted(['result' => $result]);
         } elseif (is_null($result)) {
             return Response::notFound();
@@ -162,13 +168,13 @@ class ProductController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param SetCoverRequest $request
      * @param Product $product
      * @return JsonResponse
      */
-    public function setCover(Request $request, Product $product): JsonResponse
+    public function setCover(SetCoverRequest $request, Product $product): JsonResponse
     {
-        $result = $this->productService->setCoverUuid($product, $request->uuid);
+        $result = $this->productService->setCoverUuid($product, $request->input('uuid'));
 
         return Response::success(new ProductResource($result));
     }
@@ -231,7 +237,7 @@ class ProductController extends BaseController
      */
     public function syncTags(Request $request, Product $product): JsonResponse
     {
-        $result = $this->tagService->syncTags($request->ids, $product);
+        $result = $this->tagService->syncTags($request->input('ids'), $product);
 
         if ($result) {
             return Response::success($result);
