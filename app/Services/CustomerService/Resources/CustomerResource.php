@@ -14,6 +14,7 @@ use JsonSerializable;
  * @property string $url
  * @property string $avatar
  * @property bool $is_featured
+ * @property bool $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -33,6 +34,7 @@ class CustomerResource extends JsonResource
             'url' => $this->url,
             'avatar' => $this->avatar,
             'is_featured' => $this->is_featured,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
